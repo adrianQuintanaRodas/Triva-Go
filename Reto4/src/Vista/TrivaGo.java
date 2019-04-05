@@ -19,16 +19,20 @@ import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JTextField;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import org.omg.CORBA.PUBLIC_MEMBER;
+
+import Modelo.ConexionBBDD;
 
 import javax.swing.JScrollPane;
 import javax.swing.JScrollBar;
 
 public class TrivaGo extends JFrame {
 
+	static java.sql.Connection cn;
 	private JPanel contentPane;
 	private JPanel panelEleccion;
 	private JPanel panelLogo;
@@ -87,6 +91,13 @@ public class TrivaGo extends JFrame {
 			public void mouseClicked(MouseEvent arg0) {
 				panelEleccion.setVisible(true);
 				panelLogo.setVisible(false);
+				
+				ConexionBBDD mysql= new ConexionBBDD();
+				cn=mysql.conectarmySQL();
+				if (cn!=null) {
+					JOptionPane.showMessageDialog(null, "Conectaso");
+				}
+				
 				
 			}
 		});
