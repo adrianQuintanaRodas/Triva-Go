@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import com.mysql.jdbc.Connection;
 
 public class ConexionBBDD {
+	static Connection cn;
 	/*LibreryamySQL*/
 	public String driver="com.mysql.jdbc.Driver";
 	//Nombre de la bbdd

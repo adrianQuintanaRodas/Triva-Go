@@ -5,6 +5,20 @@ public class Hotel {
 	private String nombre;
 	private String ubicacion;
 	private double precio;
+	public Hotel(int id, String nombre, String ubicacion, double precio) {
+		super();
+		this.id = id;
+		this.nombre = nombre;
+		this.ubicacion = ubicacion;
+		this.precio = precio;
+	}
+	
+	public Hotel( String nombre, double precio) {
+		super();
+		this.nombre = nombre;
+		this.precio = precio;
+	}
+	
 	public int getId() {
 		return id;
 	}
@@ -32,13 +46,6 @@ public class Hotel {
 	@Override
 	public String toString() {
 		return "Hotel [id=" + id + ", nombre=" + nombre + ", ubicacion=" + ubicacion + ", precio=" + precio + "]";
-	}
-	public Hotel(int id, String nombre, String ubicacion, double precio) {
-		super();
-		this.id = id;
-		this.nombre = nombre;
-		this.ubicacion = ubicacion;
-		this.precio = precio;
 	}
 	
 

@@ -22,9 +22,6 @@ public class ButtonColum extends JFrame {
 		super("Boton princiipal");
 		/*
 		 */
-		ArrayList<Hotel> hotel1=new ArrayList<>();
-		
-		
 		
 		
 		Object[][] data = { { "1", "Mach", new Integer(2013), "78" }, { "2", "Mach1", new Integer(2014), "781" },

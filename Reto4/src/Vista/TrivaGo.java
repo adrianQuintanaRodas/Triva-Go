@@ -38,7 +38,6 @@ public class TrivaGo extends JFrame {
 	private JPanel panelLogo;
 	private JLabel LoGo;
 	private JButton btnAtrs;
-	private JTextField textField;
 	private JTextField textField_1;
 	private JTextField textField_2;
 	private JTextField textField_3;
@@ -49,8 +48,10 @@ public class TrivaGo extends JFrame {
 	private JPanel panelPago;
 	private JPanel panelLogin;
 	private JPanel panelRegistarse;
-	private JTable table;
-	private JScrollPane panelListado;
+	static JTable table;
+	static JComboBox cmbCiudad;
+	private JPanel panelListado;
+	private JTable table_1;
 
 	/**
 	 * Launch the application.
@@ -127,27 +128,16 @@ public class TrivaGo extends JFrame {
 		btnAtrs.setBounds(0, 368, 89, 23);
 		panelEleccion.add(btnAtrs);
 		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setFont(new Font("Times New Roman", Font.PLAIN, 16));
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Salamanca", "Barcelona", "Bizkaia", "Madrid", "Valencia", "Leon", "C\u00E1ceres"}));
-		comboBox.setBounds(134, 76, 109, 20);
-		panelEleccion.add(comboBox);
+		cmbCiudad = new JComboBox();
+		cmbCiudad.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+		cmbCiudad.setModel(new DefaultComboBoxModel(new String[] {"Salamanca", "Barcelona", "Bilbao", "Madrid", "Sevilla"}));
+		cmbCiudad.setBounds(134, 76, 109, 20);
+		panelEleccion.add(cmbCiudad);
 		
 		JLabel lblCiudad = new JLabel("Ciudad:");
 		lblCiudad.setFont(new Font("Times New Roman", Font.PLAIN, 16));
 		lblCiudad.setBounds(42, 79, 74, 14);
 		panelEleccion.add(lblCiudad);
-		
-		JLabel lblNombre = new JLabel("Nombre:");
-		lblNombre.setFont(new Font("Times New Roman", Font.PLAIN, 16));
-		lblNombre.setBounds(42, 120, 63, 14);
-		panelEleccion.add(lblNombre);
-		
-		textField = new JTextField();
-		textField.setFont(new Font("Times New Roman", Font.PLAIN, 16));
-		textField.setBounds(134, 117, 337, 20);
-		panelEleccion.add(textField);
-		textField.setColumns(10);
 		
 		JLabel lblFechaEntrada = new JLabel("Fecha Entrada:");
 		lblFechaEntrada.setFont(new Font("Times New Roman", Font.PLAIN, 16));
@@ -174,6 +164,7 @@ public class TrivaGo extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				panelListado.setVisible(true);
 				panelEleccion.setVisible(false);
+				SentenciasBBDD.visualizarCiudad();
 			}
 		});
 		btnBuscar.setBounds(192, 273, 89, 23);
@@ -367,28 +358,27 @@ public class TrivaGo extends JFrame {
 		lblRegistrtarse.setBounds(200, 53, 111, 14);
 		panelRegistarse.add(lblRegistrtarse);
 		
-		JButton btnPagar=new JButton("Pagar");
+		panelListado = new JPanel();
+		contentPane.add(panelListado, "name_3929673147778868");
+		panelListado.setLayout(null);
 		
-		panelListado = new JScrollPane();
-		contentPane.add(panelListado, "name_3579441416644454");
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(0, 42, 516, 338);
+		panelListado.add(scrollPane);
 		
-		Object [][]datos=new Object [][] {
-			
-		};
-		Object [] titulo=new String []{
-				"hola","Hola2"
-				
-		};
-		MModeloTabla modelTabla=new MModeloTabla(datos, titulo);
-		table = new JTable();
-		table.setModel(new DefaultTableModel(
+		table_1 = new JTable();
+		table_1.setModel(new DefaultTableModel(
 			new Object[][] {
+				{null, null, null},
 			},
 			new String[] {
-				"New column", "New column", "hola", "Hola2"
+				"Nombre", "Precio", ""
 			}
 		));
-		table.getColumnModel().getColumn(2).setPreferredWidth(148);
-		panelListado.setViewportView(table);
+		table_1.getColumnModel().getColumn(0).setPreferredWidth(298);
+		table_1.getColumnModel().getColumn(1).setPreferredWidth(139);
+		scrollPane.setViewportView(table_1);
+		
+		JButton btnPagar=new JButton("Pagar");
 	}
 }
