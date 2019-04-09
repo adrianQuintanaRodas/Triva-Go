@@ -10,7 +10,7 @@ public class ConexionBBDD {
 	/*LibreryamySQL*/
 	public String driver="com.mysql.jdbc.Driver";
 	//Nombre de la bbdd
-	public String database="triva_go";
+	public String database="triva-go";
 	//Host
 	public String hostname="localhost";
 	//Puerto

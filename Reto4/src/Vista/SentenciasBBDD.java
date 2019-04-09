@@ -1,5 +1,6 @@
 package Vista;
 
+import java.beans.Statement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -12,26 +13,39 @@ import Modelo.ConexionBBDD;
 import Modelo.Hotel;
 
 public class SentenciasBBDD {
-	static PreparedStatement stmt = null;
+	static java.sql.Statement stmt = null;
+	static java.sql.Connection cn;
+	static ArrayList<Hotel> lista;
+	
 
-	public static void visualizarCiudad() {
+	public static ArrayList visualizarCiudad() {
+	
+		ConexionBBDD mysql= new ConexionBBDD();
+		cn=mysql.conectarmySQL();
 		ResultSet rs;
-		ArrayList<Hotel> lista=new ArrayList<Hotel>();
+		lista=new ArrayList<Hotel>();
 		//DefaultTableModel modelo = new DefaultTableModel();
 		String ubicacion = null;
 		ubicacion = (String) TrivaGo.cmbCiudad.getSelectedItem();
+		System.out.println(ubicacion);
 		String query;
 		query = "Select nombre,precio from hotel where ubicacion='" + ubicacion + "'";
 		try {
+			stmt = cn.createStatement();
 			rs=stmt.executeQuery(query);
 			while(rs.next()) {
 				String nombre=rs.getString("nombre");
 				double precio=rs.getDouble("precio");
+			
 				Hotel h=new Hotel(nombre,precio);
 				lista.add(h);
 			}
 			
-			
+			for(int i=0;i<lista.size();i++) {
+			System.out.println(lista.get(i).getNombre());
+				System.out.println(lista.get(i).getPrecio());
+			}
+			stmt.close();
 		} catch (Exception e) {
 			e.getMessage();
 		} finally {
@@ -44,7 +58,7 @@ public class SentenciasBBDD {
 				}
 			}
 		}
-	//	return nombre;
+		return lista;
 
 	}
 }
