@@ -74,6 +74,7 @@ public class TrivaGo extends JFrame {
 	/**
 	 * Create the frame.
 	 */
+	@SuppressWarnings("unchecked")
 	public TrivaGo() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 552, 440);
@@ -166,7 +167,6 @@ public class TrivaGo extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				panelListado.setVisible(true);
 				panelEleccion.setVisible(false);
-				SentenciasBBDD.visualizarCiudad();
 			}
 		});
 		btnBuscar.setBounds(192, 273, 89, 23);
@@ -370,22 +370,27 @@ public class TrivaGo extends JFrame {
 
 		table = new JTable();
 		DefaultTableModel model = new DefaultTableModel();
-
 		Object[] columnas = new Object[3];
-		columnas[1] = "Nombre";
-		columnas[2] = "Precio";
-		columnas[3]="";
+		columnas[0] = "Nombre";
+		columnas[1] = "Precio";
+		columnas[2]="";
 		model.setColumnIdentifiers(columnas);
 		Object [] filas=new Object[2];
+		ArrayList<Hotel> hotel1=new ArrayList<Hotel>();
+		hotel1=SentenciasBBDD.visualizarCiudad();
 
-		for(int i=0; i<SentenciasBBDD.visualizarCiudad().size();i++) {
-			 filas[0] =SentenciasBBDD.lista.get(i).getNombre();
-			 filas[1] =SentenciasBBDD.lista.get(i).getPrecio();
+		for(int i=0; i<hotel1.size();i++) {
+			 filas[0] =hotel1.get(i).getNombre();
+			 System.out.println(filas[0]);
+			 filas[1] =hotel1.get(i).getPrecio();
+			 System.out.println(filas[1]);
+			 model.addRow(filas);
 	}
+		 table.setModel(model);
+		
 
-		table.getColumnModel().getColumn(0).setPreferredWidth(298);
-		table.getColumnModel().getColumn(1).setPreferredWidth(139);
 		scrollPane.setViewportView(table);
+		
 
 		JButton btnPagar = new JButton("Pagar");
 	}

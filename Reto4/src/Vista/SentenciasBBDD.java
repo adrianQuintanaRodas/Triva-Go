@@ -24,10 +24,9 @@ public class SentenciasBBDD {
 		cn=mysql.conectarmySQL();
 		ResultSet rs;
 		lista=new ArrayList<Hotel>();
-		//DefaultTableModel modelo = new DefaultTableModel();
 		String ubicacion = null;
 		ubicacion = (String) TrivaGo.cmbCiudad.getSelectedItem();
-		System.out.println(ubicacion);
+	
 		String query;
 		query = "Select nombre,precio from hotel where ubicacion='" + ubicacion + "'";
 		try {
@@ -41,11 +40,7 @@ public class SentenciasBBDD {
 				lista.add(h);
 			}
 			
-			for(int i=0;i<lista.size();i++) {
-			System.out.println(lista.get(i).getNombre());
-				System.out.println(lista.get(i).getPrecio());
-			}
-			stmt.close();
+				stmt.close();
 		} catch (Exception e) {
 			e.getMessage();
 		} finally {
