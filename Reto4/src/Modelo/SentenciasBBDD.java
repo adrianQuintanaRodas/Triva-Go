@@ -1,4 +1,4 @@
-package Vista;
+package Modelo;
 
 import java.beans.Statement;
 import java.sql.ResultSet;
@@ -9,8 +9,7 @@ import javax.swing.table.DefaultTableModel;
 
 import com.mysql.jdbc.PreparedStatement;
 
-import Modelo.ConexionBBDD;
-import Modelo.Hotel;
+import Vista.PanelEleccion;
 
 public class SentenciasBBDD {
 	static java.sql.Statement stmt = null;
@@ -20,12 +19,12 @@ public class SentenciasBBDD {
 
 	public static ArrayList visualizarCiudad() {
 	
-		ConexionBBDD mysql= new ConexionBBDD();
+		ConsultasBBDD mysql= new ConsultasBBDD();
 		cn=mysql.conectarmySQL();
 		ResultSet rs;
 		lista=new ArrayList<Hotel>();
 		String ubicacion = null;
-		ubicacion = (String) TrivaGo.cmbCiudad.getSelectedItem();
+		ubicacion = (String) PanelEleccion.cmbCiudad.getSelectedItem();
 	
 		String query;
 		query = "Select nombre,precio from hotel where ubicacion='" + ubicacion + "'";

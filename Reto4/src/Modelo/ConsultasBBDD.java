@@ -5,21 +5,21 @@ import java.sql.SQLException;
 
 import com.mysql.jdbc.Connection;
 
-public class ConexionBBDD {
+public class ConsultasBBDD {
 	static Connection cn;
 	/*LibreryamySQL*/
 	public String driver="com.mysql.jdbc.Driver";
 	//Nombre de la bbdd
-	public String database="triva-go";
+	public static String database="triva-go";
 	//Host
-	public String hostname="localhost";
+	public static String hostname="localhost";
 	//Puerto
-	public String port="3306";
+	public static String port="3306";
 	//Rueta de nuestra bbdd
-	public String url="jdbc:mysql://"+hostname+":"+port+"/"+database+"?useSSL=false";
+	public static String url="jdbc:mysql://"+hostname+":"+port+"/"+database+"?useSSL=false";
 	//nombre de usuario y contraseña
-	public String username="root";
-	public String password="";
+	public static String username="root";
+	public static  String password="";
 	
 	//metodo de conexion
 	public Connection conectarmySQL() {

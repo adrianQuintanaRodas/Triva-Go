@@ -27,11 +27,12 @@ import javax.swing.table.DefaultTableModel;
 
 import org.omg.CORBA.PUBLIC_MEMBER;
 
-import Modelo.ConexionBBDD;
 import Modelo.Hotel;
+import Modelo.SentenciasBBDD;
 
 import javax.swing.JScrollPane;
 import javax.swing.JScrollBar;
+import java.awt.Canvas;
 
 public class TrivaGo extends JFrame {
 
@@ -83,7 +84,7 @@ public class TrivaGo extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(new CardLayout(0, 0));
-
+		//**********************************************************************************************************************
 		panelLogo = new JPanel();
 		panelLogo.setBackground(Color.WHITE);
 		contentPane.add(panelLogo, "name_3423802644026445");
@@ -96,11 +97,11 @@ public class TrivaGo extends JFrame {
 				panelEleccion.setVisible(true);
 				panelLogo.setVisible(false);
 
-				ConexionBBDD mysql = new ConexionBBDD();
+			/**	ConsultaBBDD mysql = new ConsultaBBDD();
 				cn = mysql.conectarmySQL();
 				if (cn != null) {
 					JOptionPane.showMessageDialog(null, "Conectado");
-				}
+				}*/
 
 			}
 		});
@@ -112,7 +113,7 @@ public class TrivaGo extends JFrame {
 		lblVyenbenydo.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblVyenbenydo.setBounds(202, 330, 114, 30);
 		panelLogo.add(lblVyenbenydo);
-
+//**********************************************************************************************************************
 		panelEleccion = new JPanel();
 		panelEleccion.setBackground(Color.WHITE);
 		contentPane.add(panelEleccion, "name_3492475729881343");
@@ -171,7 +172,7 @@ public class TrivaGo extends JFrame {
 		});
 		btnBuscar.setBounds(192, 273, 89, 23);
 		panelEleccion.add(btnBuscar);
-
+		//**********************************************************************************************************************
 		panelResumen = new JPanel();
 		panelResumen.setBackground(Color.WHITE);
 		contentPane.add(panelResumen, "name_3495257717873768");
@@ -219,7 +220,7 @@ public class TrivaGo extends JFrame {
 		textField_6.setBounds(194, 36, 86, 20);
 		panelResumen.add(textField_6);
 		textField_6.setColumns(10);
-
+		//**********************************************************************************************************************
 		panelPago = new JPanel();
 		panelPago.setBackground(Color.WHITE);
 		contentPane.add(panelPago, "name_3495560659890136");
@@ -244,7 +245,7 @@ public class TrivaGo extends JFrame {
 		JButton btnAceptar_2 = new JButton("Aceptar");
 		btnAceptar_2.setBounds(437, 368, 89, 23);
 		panelPago.add(btnAceptar_2);
-
+		//**********************************************************************************************************************
 		panelLogin = new JPanel();
 		panelLogin.setBackground(Color.WHITE);
 		contentPane.add(panelLogin, "name_3495820177435407");
@@ -302,7 +303,7 @@ public class TrivaGo extends JFrame {
 		JLabel lblLogin = new JLabel("LOGIN");
 		lblLogin.setBounds(202, 126, 46, 14);
 		panelLogin.add(lblLogin);
-
+		//**********************************************************************************************************************
 		panelRegistarse = new JPanel();
 		panelRegistarse.setBackground(Color.WHITE);
 		contentPane.add(panelRegistarse, "name_3496109259480073");
@@ -359,7 +360,7 @@ public class TrivaGo extends JFrame {
 		JLabel lblRegistrtarse = new JLabel("REGISTRARSE");
 		lblRegistrtarse.setBounds(200, 53, 111, 14);
 		panelRegistarse.add(lblRegistrtarse);
-
+		//**********************************************************************************************************************
 		panelListado = new JPanel();
 		contentPane.add(panelListado, "name_3929673147778868");
 		panelListado.setLayout(null);
@@ -381,11 +382,10 @@ public class TrivaGo extends JFrame {
 
 		for(int i=0; i<hotel1.size();i++) {
 			 filas[0] =hotel1.get(i).getNombre();
-			 System.out.println(filas[0]);
 			 filas[1] =hotel1.get(i).getPrecio();
-			 System.out.println(filas[1]);
 			 model.addRow(filas);
 	}
+		
 		 table.setModel(model);
 		
 
@@ -393,5 +393,6 @@ public class TrivaGo extends JFrame {
 		
 
 		JButton btnPagar = new JButton("Pagar");
+		//**********************************************************************************************************************
 	}
 }
