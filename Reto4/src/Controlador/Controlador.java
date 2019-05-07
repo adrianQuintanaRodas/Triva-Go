@@ -57,10 +57,10 @@ public class Controlador {
 				SentenciasBBDD sentencias = new SentenciasBBDD();
 				ArrayList<Hotel> hotel1 = sentencias.visualizarCiudad(ubicacion);
 
-				Object[] columnas = new Object[2];
+				Object[] columnas = new Object[3];
 				columnas[0] = "Nombre";
 				columnas[1] = "Precio";
-			
+				columnas[2] = "";
 				model.setColumnIdentifiers(columnas);
 				Object[] filas = new Object[2];
 				for (int i = 0; i < hotel1.size(); i++) {
