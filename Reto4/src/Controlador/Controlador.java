@@ -96,6 +96,9 @@ public class Controlador {
 				String fechahotel = (dia + "-" + mes+ "-" + year); 
 				vista.Resumen.getTextField_fechaIni().setText(fechahotel);
 				String dia2 = Integer.toString(vista.eleccion.getDatavuelta().getCalendar().get(Calendar.DAY_OF_MONTH)); 
+				
+				
+				
 				String mes2 = Integer.toString(vista.eleccion.getDatavuelta().getCalendar().get(Calendar.MONTH) + 1);
 				String year2 = Integer.toString(vista.eleccion.getDatavuelta().getCalendar().get(Calendar.YEAR)); 
 				String fechahotel2 = (dia2 + "-" + mes2+ "-" + year2); 

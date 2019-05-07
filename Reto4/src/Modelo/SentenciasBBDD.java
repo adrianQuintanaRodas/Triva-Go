@@ -41,6 +41,5 @@ public class SentenciasBBDD {
 			}
 		}
 		return lista;
-
 	}
 }
