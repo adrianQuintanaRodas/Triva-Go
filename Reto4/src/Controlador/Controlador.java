@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
@@ -84,6 +85,25 @@ public class Controlador {
 		});
 		vista.listado.getBtnAceptar().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				//String ubicacion= (String) vista.eleccion.getComboBox_1().getSelectedItem();
+				String nombrehotel = "Select nombre from hotel where ubicacion='" + ubicacion + "'";
+				vista.Resumen.getTextField_nombre().setText(nombrehotel);
+				String ciudadhotel = "Select ubicacion from hotel where ubicacion='" + ubicacion + "'";;
+				vista.Resumen.getTextField_ciudad().setText(ciudadhotel);
+				String dia = Integer.toString(vista.eleccion.getDataida().getCalendar().get(Calendar.DAY_OF_MONTH)); 
+				String mes = Integer.toString(vista.eleccion.getDataida().getCalendar().get(Calendar.MONTH) + 1);
+				String year = Integer.toString(vista.eleccion.getDataida().getCalendar().get(Calendar.YEAR)); 
+				String fechahotel = (dia + "-" + mes+ "-" + year); 
+				vista.Resumen.getTextField_fechaIni().setText(fechahotel);
+				String dia2 = Integer.toString(vista.eleccion.getDatavuelta().getCalendar().get(Calendar.DAY_OF_MONTH)); 
+				String mes2 = Integer.toString(vista.eleccion.getDatavuelta().getCalendar().get(Calendar.MONTH) + 1);
+				String year2 = Integer.toString(vista.eleccion.getDatavuelta().getCalendar().get(Calendar.YEAR)); 
+				String fechahotel2 = (dia2 + "-" + mes2+ "-" + year2); 
+				vista.Resumen.getTextField_fechaFin().setText(fechahotel2);
+				String preciohotel = "Select precio from hotel where ubicacion='" + ubicacion + "'";;
+				vista.Resumen.getTextField_Precio().setText(preciohotel);
+				String estrellashotel = "Select estrellas from hotel where ubicacion='" + ubicacion + "'";;
+				vista.Resumen.getTextField_Estrellas().setText(estrellashotel);
 				vista.mostrarPanel(vista.Resumen);
 
 			}

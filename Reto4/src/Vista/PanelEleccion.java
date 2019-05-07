@@ -2,6 +2,8 @@ package Vista;
 
 import javax.swing.JPanel;
 
+import com.toedter.calendar.JDateChooser;
+
 import Modelo.Hotel;
 import Modelo.SentenciasBBDD;
 
@@ -30,6 +32,8 @@ public class PanelEleccion extends JPanel {
 	private JLabel label;
 	private JLabel label_1;
 	private JButton btnBuscar;
+	private JDateChooser Dataida;
+	private JDateChooser datavuelta;
 
 	public PanelEleccion() {
 		setLayout(null);
@@ -39,20 +43,12 @@ public class PanelEleccion extends JPanel {
 		add(BtnAtras);
 
 		comboBox_1 = new JComboBox<>();
-	
+
 		comboBox_1.setModel(
 				new DefaultComboBoxModel(new String[] { "Salamanca", "Barcelona", "Bilbao", "Madrid", "Sevilla" }));
 		comboBox_1.setBounds(153, 78, 109, 20);
 		comboBox_1.setSelectedIndex(0);
 		add(comboBox_1);
-
-		
-		// -- MOVIDAS DE BORJA 
-		
-
-		
-		// -- MOVIDAS DE BORJA
-		
 		lblCiudad = new JLabel("Ciudad:");
 		lblCiudad.setFont(new Font("Times New Roman", Font.PLAIN, 16));
 		lblCiudad.setBounds(42, 79, 74, 14);
@@ -82,6 +78,14 @@ public class PanelEleccion extends JPanel {
 		btnBuscar.setBounds(192, 273, 89, 23);
 		add(btnBuscar);
 
+		Dataida = new JDateChooser();
+		Dataida.setBounds(166, 113, 95, 20);
+		add(Dataida);
+
+		datavuelta = new JDateChooser();
+		datavuelta.setBounds(166, 189, 95, 20);
+		add(datavuelta);
+
 	}
 
 	public JButton getbtnBuscar() {
@@ -100,6 +104,22 @@ public class PanelEleccion extends JPanel {
 		this.BtnAtras.setText("Atras");
 	}
 
+	public JDateChooser getDataida() {
+		return Dataida;
+	}
+
+	public void setDataida(JDateChooser dataida) {
+		Dataida = dataida;
+	}
+
+	public JDateChooser getDatavuelta() {
+		return datavuelta;
+	}
+
+	public void setDatavuelta(JDateChooser datavuelta) {
+		this.datavuelta = datavuelta;
+	}
+
 	public JComboBox<String> getComboBox_1() {
 		return comboBox_1;
 	}
@@ -107,5 +127,5 @@ public class PanelEleccion extends JPanel {
 	public void setComboBox_1(JComboBox<String> comboBox_1) {
 		this.comboBox_1 = comboBox_1;
 	}
-	
+
 }
