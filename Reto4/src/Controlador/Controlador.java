@@ -47,6 +47,11 @@ public class Controlador {
 				// SentenciasBBDD sentencias = new SentenciasBBDD();
 				System.out.println(e.getItem().toString());
 				ubicacion = e.getItem().toString();
+				/*
+				 * if (e.getSource()==vista.eleccion.getComboBox_1()) { String
+				 * seleccionado=(String)vista.eleccion.getComboBox_1().getSelectedItem();
+				 * ubicacion=seleccionado; }
+				 */
 				// ArrayList<Hotel> a = sentencias.visualizarCiudad(ubicacion);
 
 			}
@@ -56,8 +61,13 @@ public class Controlador {
 			public void actionPerformed(ActionEvent arg0) {
 				vista.mostrarPanel(vista.listado);
 				vista.listado.getTable().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-				DefaultTableModel model = new DefaultTableModel();
-				// String ubicacion = (String) vista.eleccion.getComboBox_1().getSelectedItem();
+				DefaultTableModel model = new DefaultTableModel() {
+					@Override
+					public boolean isCellEditable(int row, int column) {
+						// all cells false
+						return false;
+					}
+				};
 
 				ArrayList<Hotel> hotel1 = sentencias.visualizarCiudad(ubicacion);
 				Object[] columnas = new Object[2];
@@ -118,7 +128,6 @@ public class Controlador {
 				vista.Resumen.getTextField_Precio().setText(preciohotel);
 				String estrellashotel = "Select estrellas from hotel where ubicacion='" + ubicacion + "'";
 				;
-				//int huespedes=vista.eleccion.getTextField_huespedes().getText();
 				vista.Resumen.getTextField_Estrellas().setText(estrellashotel);
 				vista.mostrarPanel(vista.Resumen);
 
