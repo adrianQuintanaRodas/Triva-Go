@@ -36,7 +36,7 @@ public class PanelResumen extends JPanel {
 	
 	private JPanel panel;
 	private JLabel lblPrecioFinal;
-	private JTextField textField;
+	private JTextField textField_precioFinal;
 	
 	/**
 	 * Create the panel.
@@ -131,10 +131,10 @@ public class PanelResumen extends JPanel {
 		lblPrecioFinal.setBounds(200, 264, 82, 16);
 		panel.add(lblPrecioFinal);
 		
-		textField = new JTextField();
-		textField.setColumns(10);
-		textField.setBounds(292, 261, 86, 22);
-		panel.add(textField);
+		textField_precioFinal = new JTextField();
+		textField_precioFinal.setColumns(10);
+		textField_precioFinal.setBounds(292, 261, 86, 22);
+		panel.add(textField_precioFinal);
 		BtnPagar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 			}
@@ -142,6 +142,14 @@ public class PanelResumen extends JPanel {
 
 	}
 	
+	public JTextField getTextField_precioFinal() {
+		return textField_precioFinal;
+	}
+
+	public void setTextField_precioFinal(JTextField textField_precioFinal) {
+		this.textField_precioFinal = textField_precioFinal;
+	}
+
 	public JLabel getLblnombre() {
 		return (this.Lblnombre);
 	}

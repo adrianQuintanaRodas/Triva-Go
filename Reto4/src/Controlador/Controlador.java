@@ -103,14 +103,24 @@ public class Controlador {
 
 			}
 		});
+		/*
+		 * if (vista.listado.getTable().getSelectedRowCount() > 0) {
+		 * vista.Resumen.getTextField_nombre().setText( (String)
+		 * vista.listado.getTable().getValueAt(vista.listado.getTable().getSelectedRow()
+		 * , 0)); }
+		 */
 		vista.listado.getBtnAceptar().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (vista.listado.getTable().getSelectedRowCount() > 0) {
 					vista.Resumen.getTextField_nombre().setText(
 							(String) vista.listado.getTable().getValueAt(vista.listado.getTable().getSelectedRow(), 0));
 				}
-				String ciudadhotel = ubicacion;
-
+				String huespedes = (String) vista.eleccion.getTextField_huespedes().getText();
+				String Nnoches = (String) vista.eleccion.getTextField_Noches().getText();
+				vista.Resumen.getTextField_Nnoches().setText(String.valueOf(Nnoches));
+				Double precio = SentenciasBBDD.SacarPrecio(ubicacion);
+				vista.Resumen.getTextField_Precio().setText(String.valueOf(precio));
+				String ciudadhotel = (String) vista.eleccion.getComboBox_1().getSelectedItem();
 				vista.Resumen.getTextField_ciudad().setText(ciudadhotel);
 				String dia = Integer.toString(vista.eleccion.getDataida().getCalendar().get(Calendar.DAY_OF_MONTH));
 				String mes = Integer.toString(vista.eleccion.getDataida().getCalendar().get(Calendar.MONTH) + 1);
@@ -118,16 +128,15 @@ public class Controlador {
 				String fechahotel = (dia + "-" + mes + "-" + year);
 				vista.Resumen.getTextField_fechaIni().setText(fechahotel);
 				String dia2 = Integer.toString(vista.eleccion.getDatavuelta().getCalendar().get(Calendar.DAY_OF_MONTH));
-
 				String mes2 = Integer.toString(vista.eleccion.getDatavuelta().getCalendar().get(Calendar.MONTH) + 1);
 				String year2 = Integer.toString(vista.eleccion.getDatavuelta().getCalendar().get(Calendar.YEAR));
 				String fechahotel2 = (dia2 + "-" + mes2 + "-" + year2);
 				vista.Resumen.getTextField_fechaFin().setText(fechahotel2);
-				String preciohotel = "Select precio from hotel where ubicacion='" + ubicacion + "'";
-				;
-				vista.Resumen.getTextField_Precio().setText(preciohotel);
-				String estrellashotel = "Select estrellas from hotel where ubicacion='" + ubicacion + "'";
-				;
+				System.out.println("56468464-----------------------------------------------------");
+				 Double preciohotel = SentenciasBBDD.CalcularPrecio(precio, huespedes,
+				 Nnoches);
+				 vista.Resumen.getTextField_precioFinal().setText(String.valueOf(preciohotel));
+				String estrellashotel = SentenciasBBDD.SacarEstrellas(ubicacion);
 				vista.Resumen.getTextField_Estrellas().setText(estrellashotel);
 				vista.mostrarPanel(vista.Resumen);
 

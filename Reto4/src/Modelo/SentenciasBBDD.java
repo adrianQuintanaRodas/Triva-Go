@@ -151,7 +151,9 @@ public class SentenciasBBDD {
 
 	public static Double CalcularPrecio(Double precio, String huespedes, String Nnoches) {
 
-		Double preciofinal = null;
+		Double preciofinal;
+		System.out.println("----------------------------------------"+Integer.parseInt(huespedes));
+		System.out.println(Integer.parseInt(Nnoches));
 		preciofinal = precio * Integer.parseInt(huespedes) * Integer.parseInt(Nnoches);
 		return preciofinal;
 
