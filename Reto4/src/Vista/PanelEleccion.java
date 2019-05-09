@@ -18,6 +18,9 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
+import javax.swing.JTextField;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class PanelEleccion extends JPanel {
 
@@ -29,17 +32,21 @@ public class PanelEleccion extends JPanel {
 	private JLabel lblCiudad;
 	private JLabel lblFechaEntrada;
 	private JLabel lblFechaSalida;
-	private JLabel label;
-	private JLabel label_1;
 	private JButton btnBuscar;
 	private JDateChooser Dataida;
 	private JDateChooser datavuelta;
+	private JTextField textField_huespedes;
+	private JTextField textField_Noches;
 
 	public PanelEleccion() {
 		setLayout(null);
 
 		BtnAtras = new JButton("Atras");
-		BtnAtras.setBounds(32, 239, 59, 23);
+		BtnAtras.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		BtnAtras.setBounds(10, 11, 59, 23);
 		add(BtnAtras);
 
 		comboBox_1 = new JComboBox<>();
@@ -56,35 +63,46 @@ public class PanelEleccion extends JPanel {
 
 		lblFechaEntrada = new JLabel("Fecha Entrada:");
 		lblFechaEntrada.setFont(new Font("Times New Roman", Font.PLAIN, 16));
-		lblFechaEntrada.setBounds(42, 157, 109, 14);
+		lblFechaEntrada.setBounds(42, 125, 109, 14);
 		add(lblFechaEntrada);
 
 		lblFechaSalida = new JLabel("Fecha Salida:");
 		lblFechaSalida.setFont(new Font("Times New Roman", Font.PLAIN, 16));
-		lblFechaSalida.setBounds(42, 195, 96, 14);
+		lblFechaSalida.setBounds(42, 163, 96, 14);
 		add(lblFechaSalida);
 
-		label = new JLabel("");
-		label.setIcon(new ImageIcon("C:\\Users\\IN1DM3B_08\\Downloads\\calendar (3).png"));
-		label.setBounds(245, 148, 16, 23);
-		add(label);
-
-		label_1 = new JLabel("");
-		label_1.setIcon(new ImageIcon("C:\\Users\\IN1DM3B_08\\Downloads\\calendar (3).png"));
-		label_1.setBounds(245, 186, 16, 23);
-		add(label_1);
-
 		btnBuscar = new JButton("Buscar");
-		btnBuscar.setBounds(192, 273, 89, 23);
+		btnBuscar.setIcon(new ImageIcon("C:\\Users\\IN1DM3B_08\\Downloads\\busqueda (1).png"));
+		btnBuscar.setBounds(207, 279, 102, 23);
 		add(btnBuscar);
 
 		Dataida = new JDateChooser();
-		Dataida.setBounds(166, 113, 95, 20);
+		Dataida.setBounds(167, 119, 95, 20);
 		add(Dataida);
 
 		datavuelta = new JDateChooser();
-		datavuelta.setBounds(166, 189, 95, 20);
+		datavuelta.setBounds(166, 157, 95, 20);
 		add(datavuelta);
+		
+		JLabel lblNmeroDePersonas = new JLabel("Hu\u00E9spedes:");
+		lblNmeroDePersonas.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+		lblNmeroDePersonas.setBounds(42, 199, 96, 14);
+		add(lblNmeroDePersonas);
+		
+		textField_huespedes = new JTextField();
+		textField_huespedes.setBounds(167, 198, 51, 20);
+		add(textField_huespedes);
+		textField_huespedes.setColumns(10);
+		
+		JLabel lblNoches = new JLabel("Noches:");
+		lblNoches.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+		lblNoches.setBounds(42, 234, 96, 14);
+		add(lblNoches);
+		
+		textField_Noches = new JTextField();
+		textField_Noches.setColumns(10);
+		textField_Noches.setBounds(167, 233, 51, 20);
+		add(textField_Noches);
 
 	}
 
@@ -127,5 +145,4 @@ public class PanelEleccion extends JPanel {
 	public void setComboBox_1(JComboBox<String> comboBox_1) {
 		this.comboBox_1 = comboBox_1;
 	}
-
 }

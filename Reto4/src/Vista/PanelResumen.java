@@ -35,6 +35,8 @@ public class PanelResumen extends JPanel {
 	private JTextField TextField_Nnoches;
 	
 	private JPanel panel;
+	private JLabel lblPrecioFinal;
+	private JTextField textField;
 	
 	/**
 	 * Create the panel.
@@ -43,91 +45,100 @@ public class PanelResumen extends JPanel {
 		setBackground(Color.WHITE);
 		setLayout(null);
 		
-		
-		
-		BtnPagar = new JButton("Pagar");
-		BtnPagar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
-		BtnPagar.setBounds(309, 226, 97, 25);
-		add(BtnPagar);
-		
-		BtnAtras = new JButton("Atras");
-		BtnAtras.setBounds(33, 226, 97, 25);
-		add(BtnAtras);
-		
 	
 		
 		panel = new JPanel();
-		panel.setBounds(10, 48, 411, 167);
+		panel.setBounds(10, 0, 430, 342);
 		panel.setBackground(SystemColor.scrollbar);
 		add(panel);
 		panel.setLayout(null);
 		
 		TextField_nombre = new JTextField();
-		TextField_nombre.setBounds(299, 62, 86, 20);
+		TextField_nombre.setBounds(166, 63, 116, 20);
 		panel.add(TextField_nombre);
 		TextField_nombre.setColumns(10);
 		
 		TextField_ciudad = new JTextField();
-		TextField_ciudad.setBounds(173, 36, 116, 22);
+		TextField_ciudad.setBounds(310, 94, 86, 22);
 		panel.add(TextField_ciudad);
 		TextField_ciudad.setColumns(10);
 		
 		TextField_Estrellas = new JTextField();
-		TextField_Estrellas.setBounds(173, 8, 116, 22);
+		TextField_Estrellas.setBounds(166, 160, 116, 22);
 		panel.add(TextField_Estrellas);
 		TextField_Estrellas.setColumns(10);
 		
-		LblPrecio = new JLabel("Precio");
-		LblPrecio.setBounds(23, 140, 56, 16);
+		LblPrecio = new JLabel("Precio:");
+		LblPrecio.setBounds(16, 229, 56, 16);
 		panel.add(LblPrecio);
 		
-		LblNnoches = new JLabel("Numero de noches");
-		LblNnoches.setBounds(23, 118, 134, 16);
+		LblNnoches = new JLabel("Numero de noches:");
+		LblNnoches.setBounds(16, 199, 134, 16);
 		panel.add(LblNnoches);
 		
 		
-		Lblnombre = new JLabel("Nombre Alojamiento");
-		Lblnombre.setBounds(23, 11, 108, 16);
+		Lblnombre = new JLabel("Nombre Alojamiento:");
+		Lblnombre.setBounds(16, 67, 108, 16);
 		panel.add(Lblnombre);
 		
-		LblfechaIni = new JLabel("Fecha Inicio");
-		LblfechaIni.setBounds(23, 39, 90, 16);
+		LblfechaIni = new JLabel("Fecha Inicio:");
+		LblfechaIni.setBounds(16, 100, 90, 16);
 		panel.add(LblfechaIni);
 		
-		LblfechaFin = new JLabel("Fecha Final");
-		LblfechaFin.setBounds(23, 64, 56, 16);
+		LblfechaFin = new JLabel("Fecha Final:");
+		LblfechaFin.setBounds(16, 136, 73, 16);
 		panel.add(LblfechaFin);
 		
 		TextField_fechaIni = new JTextField();
-		TextField_fechaIni.setBounds(173, 61, 116, 22);
+		TextField_fechaIni.setBounds(166, 94, 116, 22);
 		panel.add(TextField_fechaIni);
 		TextField_fechaIni.setColumns(10);
 		
-		LblEstrellas = new JLabel("Estrellas");
-		LblEstrellas.setBounds(23, 91, 56, 16);
+		LblEstrellas = new JLabel("Estrellas:");
+		LblEstrellas.setBounds(16, 166, 56, 16);
 		panel.add(LblEstrellas);
 		
 		TextField_fechaFin = new JTextField();
-		TextField_fechaFin.setBounds(173, 88, 116, 22);
+		TextField_fechaFin.setBounds(166, 127, 116, 22);
 		panel.add(TextField_fechaFin);
 		TextField_fechaFin.setColumns(10);
 		
-		TextField_Precio = new JTextField();
-		TextField_Precio.setBounds(173, 115, 116, 22);
-		panel.add(TextField_Precio);
-		TextField_Precio.setColumns(10);
-		
 		TextField_Nnoches = new JTextField();
-		TextField_Nnoches.setBounds(173, 137, 116, 22);
+		TextField_Nnoches.setBounds(166, 193, 116, 22);
 		panel.add(TextField_Nnoches);
 		TextField_Nnoches.setColumns(10);
 		
-		Lblciudad = new JLabel("Ciudad");
-		Lblciudad.setBounds(299, 27, 41, 24);
+		Lblciudad = new JLabel("Ciudad:");
+		Lblciudad.setBounds(310, 61, 41, 24);
 		panel.add(Lblciudad);
+		
+		TextField_Precio = new JTextField();
+		TextField_Precio.setBounds(166, 226, 116, 22);
+		panel.add(TextField_Precio);
+		TextField_Precio.setColumns(10);
+		
+		BtnAtras = new JButton("Atras");
+		BtnAtras.setBounds(10, 11, 62, 25);
+		panel.add(BtnAtras);
+		
+		
+		
+		BtnPagar = new JButton("Pagar");
+		BtnPagar.setBounds(292, 306, 97, 25);
+		panel.add(BtnPagar);
+		
+		lblPrecioFinal = new JLabel("Precio Final:");
+		lblPrecioFinal.setBounds(200, 264, 82, 16);
+		panel.add(lblPrecioFinal);
+		
+		textField = new JTextField();
+		textField.setColumns(10);
+		textField.setBounds(292, 261, 86, 22);
+		panel.add(textField);
+		BtnPagar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
 
 	}
 	
