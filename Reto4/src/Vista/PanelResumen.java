@@ -48,7 +48,7 @@ public class PanelResumen extends JPanel {
 	
 		
 		panel = new JPanel();
-		panel.setBounds(10, 0, 430, 342);
+		panel.setBounds(10, 0, 452, 365);
 		panel.setBackground(SystemColor.scrollbar);
 		add(panel);
 		panel.setLayout(null);
@@ -72,13 +72,13 @@ public class PanelResumen extends JPanel {
 		LblPrecio.setBounds(16, 229, 56, 16);
 		panel.add(LblPrecio);
 		
-		LblNnoches = new JLabel("Numero de noches:");
+		LblNnoches = new JLabel("N\u00FAmero de noches:");
 		LblNnoches.setBounds(16, 199, 134, 16);
 		panel.add(LblNnoches);
 		
 		
 		Lblnombre = new JLabel("Nombre Alojamiento:");
-		Lblnombre.setBounds(16, 67, 108, 16);
+		Lblnombre.setBounds(16, 67, 134, 16);
 		panel.add(Lblnombre);
 		
 		LblfechaIni = new JLabel("Fecha Inicio:");
@@ -109,7 +109,7 @@ public class PanelResumen extends JPanel {
 		TextField_Nnoches.setColumns(10);
 		
 		Lblciudad = new JLabel("Ciudad:");
-		Lblciudad.setBounds(310, 61, 41, 24);
+		Lblciudad.setBounds(310, 61, 68, 24);
 		panel.add(Lblciudad);
 		
 		TextField_Precio = new JTextField();
@@ -118,7 +118,7 @@ public class PanelResumen extends JPanel {
 		TextField_Precio.setColumns(10);
 		
 		BtnAtras = new JButton("Atras");
-		BtnAtras.setBounds(10, 11, 62, 25);
+		BtnAtras.setBounds(10, 11, 73, 25);
 		panel.add(BtnAtras);
 		
 		

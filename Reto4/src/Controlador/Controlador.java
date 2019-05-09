@@ -4,6 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -77,6 +79,13 @@ public class Controlador {
 
 			}
 		});
+		/*
+		 * vista.listado.getTable().addMouseListener(new MouseAdapter() {
+		 * 
+		 * @Override public void mouseClicked(MouseEvent arg0) {
+		 * 
+		 * } });
+		 */
 
 		vista.eleccion.getBtnAtras().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -86,11 +95,12 @@ public class Controlador {
 		});
 		vista.listado.getBtnAceptar().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-
-				String nombrehotel = sentencias.SacarNombre(ubicacion);
-				vista.Resumen.getTextField_nombre().setText(nombrehotel);
+				if (vista.listado.getTable().getSelectedRowCount() > 0) {
+					vista.Resumen.getTextField_nombre().setText(
+							(String) vista.listado.getTable().getValueAt(vista.listado.getTable().getSelectedRow(), 0));
+				}
 				String ciudadhotel = ubicacion;
-				
+
 				vista.Resumen.getTextField_ciudad().setText(ciudadhotel);
 				String dia = Integer.toString(vista.eleccion.getDataida().getCalendar().get(Calendar.DAY_OF_MONTH));
 				String mes = Integer.toString(vista.eleccion.getDataida().getCalendar().get(Calendar.MONTH) + 1);
@@ -108,6 +118,7 @@ public class Controlador {
 				vista.Resumen.getTextField_Precio().setText(preciohotel);
 				String estrellashotel = "Select estrellas from hotel where ubicacion='" + ubicacion + "'";
 				;
+				//int huespedes=vista.eleccion.getTextField_huespedes().getText();
 				vista.Resumen.getTextField_Estrellas().setText(estrellashotel);
 				vista.mostrarPanel(vista.Resumen);
 

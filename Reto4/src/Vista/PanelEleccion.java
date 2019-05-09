@@ -46,19 +46,19 @@ public class PanelEleccion extends JPanel {
 			public void actionPerformed(ActionEvent arg0) {
 			}
 		});
-		BtnAtras.setBounds(10, 11, 59, 23);
+		BtnAtras.setBounds(10, 11, 74, 23);
 		add(BtnAtras);
 
 		comboBox_1 = new JComboBox<>();
 
 		comboBox_1.setModel(
 				new DefaultComboBoxModel(new String[] { "Salamanca", "Barcelona", "Bilbao", "Madrid", "Sevilla" }));
-		comboBox_1.setBounds(153, 78, 109, 20);
+		comboBox_1.setBounds(166, 78, 123, 20);
 		comboBox_1.setSelectedIndex(0);
 		add(comboBox_1);
 		lblCiudad = new JLabel("Ciudad:");
 		lblCiudad.setFont(new Font("Times New Roman", Font.PLAIN, 16));
-		lblCiudad.setBounds(42, 79, 74, 14);
+		lblCiudad.setBounds(42, 84, 74, 14);
 		add(lblCiudad);
 
 		lblFechaEntrada = new JLabel("Fecha Entrada:");
@@ -77,11 +77,11 @@ public class PanelEleccion extends JPanel {
 		add(btnBuscar);
 
 		Dataida = new JDateChooser();
-		Dataida.setBounds(167, 119, 95, 20);
+		Dataida.setBounds(167, 119, 142, 20);
 		add(Dataida);
 
 		datavuelta = new JDateChooser();
-		datavuelta.setBounds(166, 157, 95, 20);
+		datavuelta.setBounds(166, 157, 143, 20);
 		add(datavuelta);
 		
 		JLabel lblNmeroDePersonas = new JLabel("Hu\u00E9spedes:");
@@ -104,6 +104,22 @@ public class PanelEleccion extends JPanel {
 		textField_Noches.setBounds(167, 233, 51, 20);
 		add(textField_Noches);
 
+	}
+
+	public JTextField getTextField_huespedes() {
+		return textField_huespedes;
+	}
+
+	public void setTextField_huespedes(JTextField textField_huespedes) {
+		this.textField_huespedes = textField_huespedes;
+	}
+
+	public JTextField getTextField_Noches() {
+		return textField_Noches;
+	}
+
+	public void setTextField_Noches(JTextField textField_Noches) {
+		this.textField_Noches = textField_Noches;
 	}
 
 	public JButton getbtnBuscar() {
