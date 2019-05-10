@@ -1,23 +1,13 @@
 package Vista;
 
 import javax.swing.JPanel;
-
 import com.toedter.calendar.JDateChooser;
-
-import Modelo.Hotel;
-import Modelo.SentenciasBBDD;
-
 import java.awt.Font;
-import java.util.ArrayList;
-
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-
 import javax.swing.JLabel;
-import java.awt.event.ItemListener;
-import java.awt.event.ItemEvent;
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -52,7 +42,7 @@ public class PanelEleccion extends JPanel {
 		comboBox_1 = new JComboBox<>();
 
 		comboBox_1.setModel(
-				new DefaultComboBoxModel(new String[] { "Salamanca", "Barcelona", "Bilbao", "Madrid", "Sevilla" }));
+				new DefaultComboBoxModel<String>(new String[] { "Salamanca", "Barcelona", "Bilbao", "Madrid", "Sevilla" }));
 		comboBox_1.setBounds(166, 78, 123, 20);
 		comboBox_1.setSelectedIndex(0);
 		add(comboBox_1);
@@ -83,22 +73,22 @@ public class PanelEleccion extends JPanel {
 		datavuelta = new JDateChooser();
 		datavuelta.setBounds(166, 157, 143, 20);
 		add(datavuelta);
-		
+
 		JLabel lblNmeroDePersonas = new JLabel("Hu\u00E9spedes:");
 		lblNmeroDePersonas.setFont(new Font("Times New Roman", Font.PLAIN, 16));
 		lblNmeroDePersonas.setBounds(42, 199, 96, 14);
 		add(lblNmeroDePersonas);
-		
+
 		textField_huespedes = new JTextField();
 		textField_huespedes.setBounds(167, 198, 51, 20);
 		add(textField_huespedes);
 		textField_huespedes.setColumns(10);
-		
+
 		JLabel lblNoches = new JLabel("Noches:");
 		lblNoches.setFont(new Font("Times New Roman", Font.PLAIN, 16));
 		lblNoches.setBounds(42, 234, 96, 14);
 		add(lblNoches);
-		
+
 		textField_Noches = new JTextField();
 		textField_Noches.setColumns(10);
 		textField_Noches.setBounds(167, 233, 51, 20);

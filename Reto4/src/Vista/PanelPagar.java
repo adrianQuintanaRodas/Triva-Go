@@ -9,9 +9,9 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 
 public class PanelPagar extends JPanel {
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
+	private JTextField textField_total;
+	private JTextField textField_introducido;
+	private JTextField textField_devolver;
 	private JLabel lblTotalAPagar;
 	private JLabel lblPagado;
 	private JLabel lblADevolver;
@@ -41,28 +41,28 @@ setLayout(null);
 		lblTotalAPagar.setBounds(103, 42, 95, 16);
 		add(lblTotalAPagar);
 		
-		textField = new JTextField();
-		textField.setBounds(240, 39, 116, 22);
-		add(textField);
-		textField.setColumns(10);
+		textField_total = new JTextField();
+		textField_total.setBounds(240, 39, 116, 22);
+		add(textField_total);
+		textField_total.setColumns(10);
 		
 		lblPagado = new JLabel("Total Introducido :");
 		lblPagado.setBounds(103, 69, 116, 16);
 		add(lblPagado);
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(240, 68, 116, 22);
-		add(textField_1);
-		textField_1.setColumns(10);
+		textField_introducido = new JTextField();
+		textField_introducido.setBounds(240, 68, 116, 22);
+		add(textField_introducido);
+		textField_introducido.setColumns(10);
 		
 		lblADevolver = new JLabel("A devolver :");
 		lblADevolver.setBounds(103, 101, 95, 16);
 		add(lblADevolver);
 		
-		textField_2 = new JTextField();
-		textField_2.setBounds(240, 98, 116, 22);
-		add(textField_2);
-		textField_2.setColumns(10);
+		textField_devolver = new JTextField();
+		textField_devolver.setBounds(240, 98, 116, 22);
+		add(textField_devolver);
+		textField_devolver.setColumns(10);
 		
 		btn50euro = new JButton("50\u20AC");
 		btn50euro.addActionListener(new ActionListener() {
@@ -156,29 +156,37 @@ setLayout(null);
 		btn1cnt.setBounds(380, 164, 60, 25);
 		add(btn1cnt);
 	}
-	public JTextField gettextField() {
-		return (this.textField);
+	
+
+	public JTextField getTextField_total() {
+		return textField_total;
 	}
 
-	public void settextField() {
-		this.textField.setText("");
+
+	public void setTextField_total(JTextField textField_total) {
+		this.textField_total = textField_total;
 	}
 
-	public JTextField gettextField_1() {
-		return (this.textField_1);
+
+	public JTextField getTextField_introducido() {
+		return textField_introducido;
 	}
 
-	public void settextField_1() {
-		this.textField_1.setText("");
+
+	public void setTextField_introducido(JTextField textField_introducido) {
+		this.textField_introducido = textField_introducido;
 	}
 
-	public JTextField gettextField_2() {
-		return (this.textField_2);
+
+	public JTextField getTextField_devolver() {
+		return textField_devolver;
 	}
 
-	public void settextField_2() {
-		this.textField_2.setText("");
+
+	public void setTextField_devolver(JTextField textField_devolver) {
+		this.textField_devolver = textField_devolver;
 	}
+
 
 	public JLabel getlblTotalAPagar() {
 		return (this.lblTotalAPagar);

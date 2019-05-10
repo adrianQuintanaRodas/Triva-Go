@@ -4,6 +4,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 import Modelo.ConsultasBBDD;
 import Modelo.Hotel;
 
@@ -12,7 +14,7 @@ public class SentenciasBBDD {
 	static java.sql.Connection cn;
 	static ArrayList<Hotel> lista;
 
-	public static ArrayList visualizarCiudad(String ubicacion) {
+	public  ArrayList<Hotel> visualizarCiudad(String ubicacion) {
 
 		ConsultasBBDD mysql = new ConsultasBBDD();
 		cn = mysql.conectarmySQL();
@@ -20,13 +22,13 @@ public class SentenciasBBDD {
 		lista = new ArrayList<Hotel>();
 
 		String query;
-		query = "Select nombre,precio from hotel where ubicacion='" + ubicacion + "'";
+		query = "Select Nombre,Precio from hotel where Ubicación='" + ubicacion + "'";
 		try {
 			stmt = cn.createStatement();
 			rs = stmt.executeQuery(query);
 			while (rs.next()) {
-				String nombre = rs.getString("nombre");
-				double precio = rs.getDouble("precio");
+				String nombre = rs.getString("Nombre");
+				double precio = rs.getDouble("Precio");
 
 				Hotel h = new Hotel(nombre, precio);
 				lista.add(h);
@@ -49,7 +51,7 @@ public class SentenciasBBDD {
 
 	}
 
-	public static String SacarNombre(String ubicacion) {
+	public String SacarNombre(String ubicacion) {
 
 		ConsultasBBDD mysql = new ConsultasBBDD();
 		cn = mysql.conectarmySQL();
@@ -57,12 +59,12 @@ public class SentenciasBBDD {
 		String nombre = null;
 
 		String query;
-		query = "Select nombre from hotel where ubicacion='" + ubicacion + "'";
+		query = "Select Nombre from hotel where Ubicación='" + ubicacion + "'";
 		try {
 			stmt = cn.createStatement();
 			rs = stmt.executeQuery(query);
 			while (rs.next()) {
-				nombre = rs.getString("nombre");
+				nombre = rs.getString("Nombre");
 			}
 
 			stmt.close();
@@ -82,7 +84,7 @@ public class SentenciasBBDD {
 
 	}
 
-	public static String SacarEstrellas(String ubicacion) {
+	public String SacarEstrellas(String ubicacion) {
 
 		ConsultasBBDD mysql = new ConsultasBBDD();
 		cn = mysql.conectarmySQL();
@@ -90,12 +92,12 @@ public class SentenciasBBDD {
 		String estrellas = null;
 
 		String query;
-		query = "Select estrellas from hotel where ubicacion='" + ubicacion + "'";
+		query = "Select Estrellas from hotel where Ubicación='" + ubicacion + "'";
 		try {
 			stmt = cn.createStatement();
 			rs = stmt.executeQuery(query);
 			while (rs.next()) {
-				estrellas = rs.getString("estrellas");
+				estrellas = rs.getString("Estrellas");
 			}
 
 			stmt.close();
@@ -115,7 +117,7 @@ public class SentenciasBBDD {
 
 	}
 
-	public static Double SacarPrecio(String ubicacion) {
+	public Double SacarPrecio(String ubicacion) {
 
 		ConsultasBBDD mysql = new ConsultasBBDD();
 		cn = mysql.conectarmySQL();
@@ -123,12 +125,12 @@ public class SentenciasBBDD {
 		Double precio = null;
 
 		String query;
-		query = "Select precio from hotel where ubicacion='" + ubicacion + "'";
+		query = "Select Precio from hotel where Ubicación='" + ubicacion + "'";
 		try {
 			stmt = cn.createStatement();
 			rs = stmt.executeQuery(query);
 			while (rs.next()) {
-				precio = rs.getDouble("precio");
+				precio = rs.getDouble("Precio");
 			}
 
 			stmt.close();
@@ -149,7 +151,7 @@ public class SentenciasBBDD {
 
 	}
 
-	public static Double CalcularPrecio(Double precio, String huespedes, String Nnoches) {
+	public Double CalcularPrecio(Double precio, String huespedes, String Nnoches) {
 
 		Double preciofinal;
 		System.out.println("----------------------------------------"+Integer.parseInt(huespedes));
@@ -158,5 +160,6 @@ public class SentenciasBBDD {
 		return preciofinal;
 
 	}
+	
 
 }

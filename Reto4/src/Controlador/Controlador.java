@@ -4,8 +4,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -25,6 +23,10 @@ public class Controlador {
 	private Modelo modelo;
 	private ConsultasBBDD consultaBBDD;
 	private String ubicacion;
+	public double TotalaPagar = 0;
+	public double Adevolver = 0;
+	public double Introducido = 0;
+
 	SentenciasBBDD sentencias = new SentenciasBBDD();
 
 	public Controlador(Vista vista, Modelo modelo, ConsultasBBDD consultaBBDD2) {
@@ -34,7 +36,22 @@ public class Controlador {
 		InitializeEvents();
 
 	}
+	public void SumarIntroducido(double cantidad) {
+		double TotalIntroducido = 0;
+		double cambios=0;
+		double Total=0;
+		TotalIntroducido = TotalIntroducido + cantidad;
+		vista.pagar.getTextField_total().setText(Double.toString(TotalIntroducido));
+		// Datos.sacarResto=Datos.Total-Datos.TotalIntroducido;
+		if (Total > TotalIntroducido) {
+			vista.pagar.getTextField_introducido().setText(Double.toString(0));
 
+		} else {
+			vista.pagar.getTextField_introducido().setText(Double.toString(TotalIntroducido - Total));
+			cambios = TotalIntroducido - Total;
+		}
+	}
+	
 	private void InitializeEvents() {
 		vista.panelPresentacion.getbtnPresentacionTermibus().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -62,6 +79,9 @@ public class Controlador {
 				vista.mostrarPanel(vista.listado);
 				vista.listado.getTable().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 				DefaultTableModel model = new DefaultTableModel() {
+
+					private static final long serialVersionUID = 1L;
+
 					@Override
 					public boolean isCellEditable(int row, int column) {
 						// all cells false
@@ -89,13 +109,6 @@ public class Controlador {
 
 			}
 		});
-		/*
-		 * vista.listado.getTable().addMouseListener(new MouseAdapter() {
-		 * 
-		 * @Override public void mouseClicked(MouseEvent arg0) {
-		 * 
-		 * } });
-		 */
 
 		vista.eleccion.getBtnAtras().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -103,14 +116,10 @@ public class Controlador {
 
 			}
 		});
-		/*
-		 * if (vista.listado.getTable().getSelectedRowCount() > 0) {
-		 * vista.Resumen.getTextField_nombre().setText( (String)
-		 * vista.listado.getTable().getValueAt(vista.listado.getTable().getSelectedRow()
-		 * , 0)); }
-		 */
-		vista.listado.getBtnAceptar().addActionListener(new ActionListener() {
+
+		vista.listado.getBtnReservar().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+			
 				if (vista.listado.getTable().getSelectedRowCount() > 0) {
 					vista.Resumen.getTextField_nombre().setText(
 							(String) vista.listado.getTable().getValueAt(vista.listado.getTable().getSelectedRow(), 0));
@@ -118,7 +127,7 @@ public class Controlador {
 				String huespedes = (String) vista.eleccion.getTextField_huespedes().getText();
 				String Nnoches = (String) vista.eleccion.getTextField_Noches().getText();
 				vista.Resumen.getTextField_Nnoches().setText(String.valueOf(Nnoches));
-				Double precio = SentenciasBBDD.SacarPrecio(ubicacion);
+				Double precio = sentencias.SacarPrecio(ubicacion);
 				vista.Resumen.getTextField_Precio().setText(String.valueOf(precio));
 				String ciudadhotel = (String) vista.eleccion.getComboBox_1().getSelectedItem();
 				vista.Resumen.getTextField_ciudad().setText(ciudadhotel);
@@ -132,11 +141,9 @@ public class Controlador {
 				String year2 = Integer.toString(vista.eleccion.getDatavuelta().getCalendar().get(Calendar.YEAR));
 				String fechahotel2 = (dia2 + "-" + mes2 + "-" + year2);
 				vista.Resumen.getTextField_fechaFin().setText(fechahotel2);
-				System.out.println("56468464-----------------------------------------------------");
-				 Double preciohotel = SentenciasBBDD.CalcularPrecio(precio, huespedes,
-				 Nnoches);
-				 vista.Resumen.getTextField_precioFinal().setText(String.valueOf(preciohotel));
-				String estrellashotel = SentenciasBBDD.SacarEstrellas(ubicacion);
+				Double preciohotel = sentencias.CalcularPrecio(precio, huespedes, Nnoches);
+				vista.Resumen.getTextField_precioFinal().setText(String.valueOf(preciohotel));
+				String estrellashotel = sentencias.SacarEstrellas(ubicacion);
 				vista.Resumen.getTextField_Estrellas().setText(estrellashotel);
 				vista.mostrarPanel(vista.Resumen);
 
@@ -152,6 +159,8 @@ public class Controlador {
 		vista.Resumen.getBtnPagar().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				vista.mostrarPanel(vista.pagar);
+				String precioFinal=vista.Resumen.getTextField_precioFinal().getText();
+				vista.pagar.getTextField_total().setText(precioFinal);
 
 			}
 		});
@@ -159,6 +168,126 @@ public class Controlador {
 			public void actionPerformed(ActionEvent arg0) {
 				vista.mostrarPanel(vista.eleccion);
 
+			}
+		});
+		vista.pagar.getbtn50euro().addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				// Introducimos 50 eurazos
+				if (Introducido>=TotalaPagar) {
+					Adevolver= Introducido-TotalaPagar;
+				}else {
+					Introducido = Introducido + 50;
+				}
+			}
+		});
+		vista.pagar.getbtn20euro().addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				// Introducimos 20 eurazos
+				if (Introducido>=TotalaPagar) {
+					Adevolver= Introducido-TotalaPagar;
+				}else {
+					Introducido = Introducido + 20;
+				}
+			}
+		});
+		vista.pagar.getbtn10euro().addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				// Introducimos 10 eurazos
+				if (Introducido>=TotalaPagar) {
+					Adevolver= Introducido-TotalaPagar;
+				}else {
+					Introducido = Introducido + 10;
+				}
+			}
+		});
+		vista.pagar.getbtn5euro().addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				// Introducimos 5 eurazos
+				if (Introducido>=TotalaPagar) {
+					Adevolver= Introducido-TotalaPagar;
+				}else {
+					Introducido = Introducido + 5;
+				}
+			}
+		});
+		vista.pagar.getbtn2euro().addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				// Introducimos 2 eurazos
+				if (Introducido>=TotalaPagar) {
+					Adevolver= Introducido-TotalaPagar;
+				}else {
+					Introducido = Introducido + 2;
+				}
+			}
+		});
+		vista.pagar.getbtn1euro().addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				// Introducimos 1 eurazo
+				if (Introducido>=TotalaPagar) {
+					Adevolver= Introducido-TotalaPagar;
+				}else {
+					Introducido = Introducido + 1;
+				}
+			}
+		});
+		vista.pagar.getbtn50cnt().addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				// Introducimos 50 centimazos
+				if (Introducido>=TotalaPagar) {
+					Adevolver= Introducido-TotalaPagar;
+				}else {
+					Introducido = Introducido + 0.50;
+				}
+			}
+		});
+		vista.pagar.getbtn20cnt().addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				// Introducimos 20 centimazos
+				if (Introducido>=TotalaPagar) {
+					Adevolver= Introducido-TotalaPagar;
+				}else {
+					Introducido = Introducido + 0.20;
+				}
+			}
+		});
+		vista.pagar.getbtn10cnt().addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				// Introducimos 10 centimazos
+				if (Introducido>=TotalaPagar) {
+					Adevolver= Introducido-TotalaPagar;
+				}else {
+					Introducido = Introducido + 0.10;
+				}
+			}
+		});
+		vista.pagar.getbtn5cnt().addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				// Introducimos 5 centimazos
+				if (Introducido>=TotalaPagar) {
+					Adevolver= Introducido-TotalaPagar;
+				}else {
+					Introducido = Introducido + 0.05;
+				}
+			}
+		});
+		vista.pagar.getbtn2cnt().addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				// Introducimos 2 centimazos
+				if (Introducido>=TotalaPagar) {
+					Adevolver= Introducido-TotalaPagar;
+				}else {
+					Introducido = Introducido + 0.02;
+				}
+			}
+		});
+		vista.pagar.getbtn1cnt().addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				// Introducimos 1 centimazo
+				if (Introducido>=TotalaPagar) {
+					Adevolver= Introducido-TotalaPagar;
+				}else {
+					Introducido = Introducido + 0.01;
+				}
 			}
 		});
 

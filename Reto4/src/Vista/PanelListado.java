@@ -1,33 +1,20 @@
 package Vista;
 
-import java.util.ArrayList;
-
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
-
-import Controlador.Controlador;
-import Modelo.Hotel;
-import Modelo.SentenciasBBDD;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import javax.swing.ListSelectionModel;
 
 public class PanelListado extends JPanel {
+
+	private static final long serialVersionUID = 1L;
 	private JTable Table;
 	private JScrollPane ScrollPane;
-	private JButton BtnAceptar;
+	private JButton BtnReservar;
 	private JButton BtnAtras;
 
-	private JPanel panel;
-
-	/**
-	 * Create the panel.
-	 */
 	public PanelListado() {
 		setLayout(null);
 
@@ -36,15 +23,15 @@ public class PanelListado extends JPanel {
 			public void actionPerformed(ActionEvent arg0) {
 			}
 		});
-		BtnAtras.setBounds(20, 277, 111, 23);
+		BtnAtras.setBounds(10, 27, 76, 23);
 		add(BtnAtras);
 
-		BtnAceptar = new JButton("Aceptar");
-		BtnAceptar.setBounds(329, 277, 111, 23);
-		add(BtnAceptar);
+		BtnReservar = new JButton("Reservar");
+		BtnReservar.setBounds(329, 336, 111, 23);
+		add(BtnReservar);
 
 		ScrollPane = new JScrollPane();
-		ScrollPane.setBounds(10, 11, 430, 260);
+		ScrollPane.setBounds(10, 70, 430, 260);
 		add(ScrollPane);
 
 		Table = new JTable();
@@ -67,12 +54,12 @@ public class PanelListado extends JPanel {
 		Table = table;
 	}
 
-	public JButton getBtnAceptar() {
-		return (this.BtnAceptar);
+	public JButton getBtnReservar() {
+		return (this.BtnReservar);
 	}
 
-	public void setBtnAceptar() {
-		this.BtnAceptar.setText("Aceptar");
+	public void setBtnReservar() {
+		this.BtnReservar.setText("Reservar");
 	}
 
 	public JButton getBtnAtras() {
