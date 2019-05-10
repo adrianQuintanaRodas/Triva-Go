@@ -109,7 +109,7 @@ setLayout(null);
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btn1euro.setBounds(380, 128, 60, 25);
+		btn1euro.setBounds(366, 65, 60, 25);
 		add(btn1euro);
 		
 		btnDevolver = new JButton("Devolver");
