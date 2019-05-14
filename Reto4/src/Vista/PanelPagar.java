@@ -4,260 +4,97 @@ import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.Color;
-import java.awt.event.ActionEvent;
 
 public class PanelPagar extends JPanel {
+
+	private static final long serialVersionUID = 1L;
 	private JTextField textField_total;
 	private JTextField textField_introducido;
 	private JTextField textField_devolver;
 	private JLabel lblTotalAPagar;
 	private JLabel lblPagado;
 	private JLabel lblADevolver;
-	private JButton btn50euro;
-	private JButton btn20euro;
-	private JButton btn10euro;
-	private JButton btn5euro;
-	private JButton btn2euro;
-	private JButton btn1euro;
 	private JButton btnDevolver;
 	private JButton btnCancelar;
-	private JButton btncnt;
-	private JButton btn50cnt;
-	private JButton btn20cnt;
-	private JButton btn10cnt;
-	private JButton btn5cnt;
-	private JButton btn2cnt;
-	private JButton btn1cnt;
-	
+	private JButton btnComprobar;
+
 	/**
 	 * Create the panel.
 	 */
 	public PanelPagar() {
-setLayout(null);
-		
+		setLayout(null);
+
 		lblTotalAPagar = new JLabel("Total a pagar:");
 		lblTotalAPagar.setBounds(103, 42, 95, 16);
 		add(lblTotalAPagar);
-		
+
 		textField_total = new JTextField();
 		textField_total.setBounds(240, 39, 116, 22);
 		add(textField_total);
 		textField_total.setColumns(10);
-		
+
 		lblPagado = new JLabel("Total Introducido :");
 		lblPagado.setBounds(103, 69, 116, 16);
 		add(lblPagado);
-		
+
 		textField_introducido = new JTextField();
 		textField_introducido.setBounds(240, 68, 116, 22);
 		add(textField_introducido);
 		textField_introducido.setColumns(10);
-		
+
 		lblADevolver = new JLabel("A devolver :");
 		lblADevolver.setBounds(103, 101, 95, 16);
 		add(lblADevolver);
-		
+
 		textField_devolver = new JTextField();
+		textField_devolver.setEditable(false);
 		textField_devolver.setBounds(240, 98, 116, 22);
 		add(textField_devolver);
 		textField_devolver.setColumns(10);
-		
-		btn50euro = new JButton("50\u20AC");
-		btn50euro.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		btn50euro.setBounds(33, 128, 60, 25);
-		add(btn50euro);
-		
-		btn20euro = new JButton("20\u20AC");
-		btn20euro.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
-		btn20euro.setBounds(103, 128, 60, 25);
-		add(btn20euro);
-		
-		btn10euro = new JButton("10 \u20AC");
-		btn10euro.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		btn10euro.setBounds(170, 128, 60, 25);
-		add(btn10euro);
-		
-		btn5euro = new JButton("5\u20AC");
-		btn5euro.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		btn5euro.setBounds(240, 128, 60, 25);
-		add(btn5euro);
-		
-		btn2euro = new JButton("2\u20AC");
-		btn2euro.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		btn2euro.setBounds(310, 128, 60, 25);
-		add(btn2euro);
-		
-		btn1euro = new JButton("1\u20AC");
-		btn1euro.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		btn1euro.setBounds(366, 65, 60, 25);
-		add(btn1euro);
-		
+
 		btnDevolver = new JButton("Devolver");
 		btnDevolver.setBounds(315, 218, 97, 25);
 		add(btnDevolver);
-		
+
 		btnCancelar = new JButton("Cancelar");
 		btnCancelar.setBounds(52, 218, 97, 25);
 		add(btnCancelar);
-		
-		btn50cnt = new JButton("50cnt");
-		btn50cnt.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
-		btn50cnt.setBounds(33, 164, 60, 25);
-		add(btn50cnt);
-		
-		btn20cnt = new JButton("20cnt");
-		btn20cnt.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		btn20cnt.setBounds(103, 164, 60, 25);
-		add(btn20cnt);
-		
-		btn10cnt = new JButton("10cnt");
-		btn10cnt.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		btn10cnt.setBounds(170, 164, 60, 25);
-		add(btn10cnt);
-		
-		btn5cnt = new JButton("5cnt");
-		btn5cnt.setBounds(240, 164, 60, 25);
-		add(btn5cnt);
-		
-		btn2cnt = new JButton("2cnt");
-		btn2cnt.setBounds(310, 164, 60, 25);
-		add(btn2cnt);
-		
-		btn1cnt = new JButton("1cnt");
-		btn1cnt.setBounds(380, 164, 60, 25);
-		add(btn1cnt);
+
+		btnComprobar = new JButton("Comprobar");
+		btnComprobar.setBounds(380, 66, 89, 23);
+		add(btnComprobar);
 	}
-	
+
+	public JButton getBtnComprobar() {
+		return btnComprobar;
+	}
+
+	public void setBtnComprobar(JButton btnComprobar) {
+		this.btnComprobar = btnComprobar;
+	}
 
 	public JTextField getTextField_total() {
 		return textField_total;
 	}
 
-
 	public void setTextField_total(JTextField textField_total) {
 		this.textField_total = textField_total;
 	}
-
 
 	public JTextField getTextField_introducido() {
 		return textField_introducido;
 	}
 
-
 	public void setTextField_introducido(JTextField textField_introducido) {
 		this.textField_introducido = textField_introducido;
 	}
-
 
 	public JTextField getTextField_devolver() {
 		return textField_devolver;
 	}
 
-
 	public void setTextField_devolver(JTextField textField_devolver) {
 		this.textField_devolver = textField_devolver;
-	}
-
-
-	public JLabel getlblTotalAPagar() {
-		return (this.lblTotalAPagar);
-	}
-
-	public void setlblTotalAPagar() {
-		this.lblTotalAPagar.setText("Total A Pagar");
-	}
-
-	public JLabel getlblPagado() {
-		return (this.lblPagado);
-	}
-
-	public void setlblPagado() {
-		this.lblPagado.setText("Pagado");
-	}
-
-	public JLabel getlblADevolver() {
-		return (this.lblADevolver);
-	}
-
-	public void setlblADevolver() {
-		this.lblADevolver.setText("A Devolver");
-	}
-
-	public JButton getbtn50euro() {
-		return (this.btn50euro);
-	}
-
-	public void setbtn50euro() {
-		this.btn50euro.setText("50€");
-	}
-
-	public JButton getbtn20euro() {
-		return (this.btn20euro);
-	}
-
-	public void setbtn20euro() {
-		this.btn20euro.setText("20€");
-	}
-
-	public JButton getbtn10euro() {
-		return (this.btn10euro);
-	}
-
-	public void setbtn10euro() {
-		this.btn10euro.setText("10€");
-	}
-
-	public JButton getbtn5euro() {
-		return (this.btn5euro);
-	}
-
-	public void setbtn5euro() {
-		this.btn5euro.setText("5€");
-	}
-
-	public JButton getbtn2euro() {
-		return (this.btn2euro);
-	}
-
-	public void setbtn2euro() {
-		this.btn2euro.setText("2€");
-	}
-
-	public JButton getbtn1euro() {
-		return (this.btn1euro);
-	}
-
-	public void setbtn1euro() {
-		this.btn1euro.setText("1€");
 	}
 
 	public JButton getbtnDevolver() {
@@ -275,50 +112,5 @@ setLayout(null);
 	public void setbtnCancelar() {
 		this.btnCancelar.setText("Cancelar");
 	}
-	public JButton getbtn50cnt() {
-		return (this.btn50cnt);
-	}
 
-	public void setbtn50cnt() {
-		this.btn50cnt.setText("50 cnt");
-	}
-	public JButton getbtn20cnt() {
-	return (this.btn20cnt);
-	}
-
-	public void setbtn20cnt() {
-	this.btn20cnt.setText("20 cnt");
-	}
-	
-	public JButton getbtn10cnt() {
-	return (this.btn10cnt);
-	}
-
-	public void setbtn10cnt() {
-	this.btn10cnt.setText("10 cnt");
-	}
-	public JButton getbtn5cnt() {
-	return (this.btn5cnt);
-	}
-
-	public void setbtn5cnt() {
-	this.btn5cnt.setText("5 cnt");
-	}
-	
-	public JButton getbtn2cnt() {
-	return (this.btn2cnt);
-	}
-
-	public void setbtn2cnt() {
-	this.btn2cnt.setText("2 cnt");
-	}
-	
-	public JButton getbtn1cnt() {
-	return (this.btn1cnt);
-	}
-
-	public void setbtn1cnt() {
-	this.btn1cnt.setText("1 cnt");
-	}
-	
 }

@@ -12,19 +12,20 @@ import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
-public class Licencia extends JFrame implements ActionListener, ChangeListener {
+public class Licencia extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private JLabel label1, label2;
 	private JCheckBox check1;
-	private JButton boton1, boton2;
+	private JButton boton2;
 	private JScrollPane scrollpane1;
 	private JTextArea textarea1;
+	private JButton boton1;
 
 	public Licencia() {
 		setLayout(null);
-		setTitle("Licencia de Uso");
-		
+		setName("Licencia de Uso");
+
 		label1 = new JLabel("TERMINOS Y CONDICIONES");
 		label1.setBounds(150, 5, 300, 30);
 		label1.setFont(new Font("Andale Mono", 1, 18));
@@ -34,53 +35,42 @@ public class Licencia extends JFrame implements ActionListener, ChangeListener {
 		textarea1 = new JTextArea();
 		textarea1.setEditable(false);
 		textarea1.setBounds(215, 5, 200, 30);
-		textarea1.setFont(new Font("Andale Mono", 1,12));
+		textarea1.setFont(new Font("Andale Mono", 1, 12));
 		textarea1.setText("\n Terminos y condiciones\n"
 				+ "\n a) Acepta que su ubicación sea usada para uso de localización de sus alojamientos."
 				+ "\n b) Acepta el uso de sus datos para registro apropiado de sus reservas."
 				+ "\n c) Acepta el que TrivaGo le envie promociones."
 				+ "\n d) Acepta el uso de sus datos para las promociones de TrivaGo.\n"
 				+ "\n Más información en www.trivaGo.com"
-				
-				);
+
+		);
 		scrollpane1 = new JScrollPane(textarea1);
 		scrollpane1.setBounds(10, 40, 500, 200);
 		add(scrollpane1);
 
 		check1 = new JCheckBox("Acepto los términos.");
 		check1.setBounds(10, 250, 300, 30);
-		check1.addChangeListener(this);
 		add(check1);
-		
-		boton1 = new JButton("Continuar");
-		boton1.setBounds(10, 290, 100, 30);
-		boton1.addActionListener(this);
-		boton1.setEnabled(false);
-		add(boton1);
 
 		boton2 = new JButton("No Acepto");
 		boton2.setBounds(120, 290, 100, 30);
-		boton2.addActionListener(this);
 		boton2.setEnabled(true);
 		add(boton2);
-		ImageIcon imagen=new ImageIcon("C:\\Users\\IN1DM3B_08\\Desktop\\Licencia.png");
-		label2=new JLabel(imagen);
+
+		ImageIcon imagen = new ImageIcon("C:\\Users\\IN1DM3B_08\\Desktop\\Licencia.png");
+		label2 = new JLabel(imagen);
 		label2.setBounds(315, 135, 300, 300);
 		add(label2);
 
-	}
-
-	@Override
-	public void stateChanged(ChangeEvent e) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
+		boton1 = new JButton("Continuar");
+		boton1.setEnabled(false);
+		boton1.setBounds(10, 287, 100, 30);
+		add(boton1);
 
 	}
+
+
+
 	public JCheckBox getCheck1() {
 		return check1;
 	}
@@ -105,13 +95,13 @@ public class Licencia extends JFrame implements ActionListener, ChangeListener {
 		this.boton2 = boton2;
 	}
 
-	public static void main(String[] args) {
-		Licencia ventanaLicencia=new Licencia();
-		ventanaLicencia.setBounds(0,0,600,360);
-		ventanaLicencia.setVisible(true);
-		ventanaLicencia.setResizable(false);
-		ventanaLicencia.setLocationRelativeTo(null);
-		
-	}
+	/*
+	 * public static void main(String[] args) { Licencia ventanaLicencia=new
+	 * Licencia(); ventanaLicencia.setBounds(0,0,600,360);
+	 * ventanaLicencia.setVisible(true); ventanaLicencia.setResizable(false);
+	 * ventanaLicencia.setLocationRelativeTo(null);
+	 * 
+	 * }
+	 */
 
 }
