@@ -3,14 +3,9 @@ package Vista;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
-import javax.swing.JTextArea;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-
 public class PanelDevolver extends JPanel {
 
-	private JPanel contentPane;
+	private static final long serialVersionUID = 1L;
 	public JTextField textField_1;
 	private JTextField textField_vueltas;
 
@@ -26,12 +21,11 @@ public class PanelDevolver extends JPanel {
 		JLabel lblNewLabel = new JLabel("Vueltas:");
 		lblNewLabel.setBounds(40, 50, 46, 14);
 		add(lblNewLabel);
-		
+
 		textField_vueltas = new JTextField();
 		textField_vueltas.setBounds(30, 88, 391, 150);
 		add(textField_vueltas);
 		textField_vueltas.setColumns(10);
-		
 
 	}
 

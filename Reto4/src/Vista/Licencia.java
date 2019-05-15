@@ -1,10 +1,8 @@
 package Vista;
 
 import javax.swing.*;
-import javax.swing.event.*;
 
 import java.awt.*;
-import java.awt.event.*;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -69,8 +67,6 @@ public class Licencia extends JPanel {
 
 	}
 
-
-
 	public JCheckBox getCheck1() {
 		return check1;
 	}
@@ -94,14 +90,5 @@ public class Licencia extends JPanel {
 	public void setBoton2(JButton boton2) {
 		this.boton2 = boton2;
 	}
-
-	/*
-	 * public static void main(String[] args) { Licencia ventanaLicencia=new
-	 * Licencia(); ventanaLicencia.setBounds(0,0,600,360);
-	 * ventanaLicencia.setVisible(true); ventanaLicencia.setResizable(false);
-	 * ventanaLicencia.setLocationRelativeTo(null);
-	 * 
-	 * }
-	 */
 
 }

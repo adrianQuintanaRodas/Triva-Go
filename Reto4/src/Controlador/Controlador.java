@@ -8,12 +8,14 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Scanner;
+
+import java.lang.String;
 
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 
+import Modelo.Cliente;
 import Modelo.ConsultasBBDD;
 import Modelo.Hotel;
 import Modelo.Modelo;
@@ -24,17 +26,14 @@ public class Controlador {
 
 	protected static final String String = null;
 	private Vista vista;
-	private Modelo modelo;
-	private ConsultasBBDD consultaBBDD;
 	private String ubicacion;
 	Double precioFinal;
 
 	SentenciasBBDD sentencias = new SentenciasBBDD();
 
+	// **************************METODOS*************
 	public Controlador(Vista vista, Modelo modelo, ConsultasBBDD consultaBBDD2) {
 		this.vista = vista;
-		this.modelo = modelo;
-		this.consultaBBDD = consultaBBDD2;
 		InitializeEvents();
 
 	}
@@ -190,7 +189,65 @@ public class Controlador {
 		}
 		vista.Devolver.getTextField_vueltas().setText(cambios);
 	}
-//************************************************************************************************************
+
+	private boolean isPasswordCorrect(char[] j1, char[] j2) {
+		boolean valor = true;
+		int puntero = 0;
+		if (j1.length != j2.length) {
+			valor = false;
+		} else {
+			while ((valor) && (puntero < j1.length)) {
+				if (j1[puntero] != j2[puntero]) {
+					valor = false;
+				}
+				puntero++;
+			}
+		}
+		return valor;
+	}
+
+	private Cliente cogerdatosregistroUsuario() {
+		Cliente A1 = null;
+		// Al darle al boton registrar, Guardas los datos de la pantalla y los guarda en
+		// un objeto usuario
+		/*if(String.valueOf(vista.registro.getpFContrasenaRegistro()).equals(String.valueOf(vista.registro.getpFRegistroContrasena()))){
+		System.out.print("son iguales");
+		}else {
+		System.out.print("No son iguales");
+		}*/
+		if (vista.registro.getpFContrasenaRegistro().getPassword().equals(vista.registro.getpFRegistroContrasena().getPassword())) {
+			//if (vista.registro.getTxt_con1().getText().equals(vista.registro.getTxt_con2().getText())) {
+
+			A1 = new Cliente();
+
+			A1.setNombre(vista.registro.gettFNombreRegistro().getText());
+			A1.setDni(vista.registro.getTfDNIRegistro().getText());
+			A1.setApellido(vista.registro.getTextField_Apellido().getText());
+			A1.setcontraseña(String.valueOf(vista.registro.getpFContrasenaRegistro().getPassword()));
+			A1.setTelefono(Integer.parseInt(vista.registro.getTextField_Telefono().getText()));
+			A1.setgmail(vista.registro.getTextField_Gmail().getText());
+
+		} else {
+			JOptionPane.showMessageDialog(null, "La contraseña no coinciden");
+		}
+		return A1;
+
+	}
+
+	// resetear el panel registro poniendolo vacio.
+	private void resetRegistro() {
+		// TODO Auto-generated method stub
+		vista.registro.gettFNombreRegistro().setText(null);
+		vista.registro.getTfDNIRegistro().setText(null);
+		vista.registro.getpFRegistroContrasena().setText(null);
+		vista.registro.getpFContrasenaRegistro().setText(null);
+		vista.registro.getTextField_Apellido().setText(null);
+		vista.registro.getTextField_Gmail().setText(null);
+		;
+		vista.registro.getTextField_Telefono().setText(null);
+		;
+	}
+	// ************************************************************************************************************
 
 	private void InitializeEvents() {
 		vista.panelPresentacion.getbtnPresentacionTermibus().addActionListener(new ActionListener() {
@@ -199,9 +256,9 @@ public class Controlador {
 
 			}
 		});
+		// **************************ELECCION*************
 		vista.eleccion.getComboBox_1().addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
-				// SentenciasBBDD sentencias = new SentenciasBBDD();
 
 				ubicacion = e.getItem().toString();
 
@@ -243,14 +300,13 @@ public class Controlador {
 
 			}
 		});
-
 		vista.eleccion.getBtnAtras().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				vista.mostrarPanel(vista.panelPresentacion);
 
 			}
 		});
-
+		// **************************LISTADO*************
 		vista.listado.getBtnReservar().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
@@ -260,9 +316,9 @@ public class Controlador {
 				}
 				String huespedes = (String) vista.eleccion.getTextField_huespedes().getText();
 				String Nnoches = (String) vista.eleccion.getTextField_Noches().getText();
-				vista.Resumen.getTextField_Nnoches().setText(String.valueOf(Nnoches));
+				vista.Resumen.getTextField_Nnoches().setText(java.lang.String.valueOf(Nnoches));
 				Double precio = sentencias.SacarPrecio(ubicacion);
-				vista.Resumen.getTextField_Precio().setText(String.valueOf(precio));
+				vista.Resumen.getTextField_Precio().setText(java.lang.String.valueOf(precio));
 				String ciudadhotel = (String) vista.eleccion.getComboBox_1().getSelectedItem();
 				vista.Resumen.getTextField_ciudad().setText(ciudadhotel);
 				String dia = Integer.toString(vista.eleccion.getDataida().getCalendar().get(Calendar.DAY_OF_MONTH));
@@ -276,7 +332,7 @@ public class Controlador {
 				String fechahotel2 = (dia2 + "-" + mes2 + "-" + year2);
 				vista.Resumen.getTextField_fechaFin().setText(fechahotel2);
 				Double preciohotel = sentencias.CalcularPrecio(precio, huespedes, Nnoches);
-				vista.Resumen.getTextField_precioFinal().setText(String.valueOf(preciohotel));
+				vista.Resumen.getTextField_precioFinal().setText(java.lang.String.valueOf(preciohotel));
 				precioFinal = Double.parseDouble(vista.Resumen.getTextField_precioFinal().getText());
 				String estrellashotel = sentencias.SacarEstrellas(ubicacion);
 				vista.Resumen.getTextField_Estrellas().setText(estrellashotel);
@@ -290,14 +346,21 @@ public class Controlador {
 				/* poner la licencia en el principal panel */
 			}
 		});
-
+		// **************************RESUMEN*************
 		vista.Resumen.getBtnPagar().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				vista.mostrarPanel(vista.pagar);
+				vista.mostrarPanel(vista.login);
 				String precioFinal = vista.Resumen.getTextField_precioFinal().getText();
 				vista.pagar.getTextField_total().setText(precioFinal);
 			}
 		});
+		vista.Resumen.getBtnAtras().addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				vista.mostrarPanel(vista.eleccion);
+
+			}
+		});
+		// **************************LICENCIA*************
 		vista.licencia.getBoton2().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				// vista.licencia.setVisible(false);
@@ -305,7 +368,6 @@ public class Controlador {
 				;
 			}
 		});
-
 		vista.licencia.getCheck1().addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
@@ -325,12 +387,7 @@ public class Controlador {
 
 			}
 		});
-		vista.Resumen.getBtnAtras().addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				vista.mostrarPanel(vista.eleccion);
-
-			}
-		});
+		// **************************PAGAR*************
 		vista.pagar.getBtnComprobar().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				cambios();
@@ -350,10 +407,65 @@ public class Controlador {
 				} else {
 					vista.mostrarPanel(vista.Devolver);
 					String vuelta = vista.pagar.getTextField_devolver().getText();
-					System.out.println(vuelta);
+
 					devolver(vuelta);
 				}
 			}
+		});
+		// *************************LOGIN***********************
+		vista.login.getBtnAtras().addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				vista.mostrarPanel(vista.Resumen);
+
+			}
+		});
+		vista.login.getbtnRegistrarse().addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				vista.mostrarPanel(vista.registro);
+
+			}
+		});
+		vista.login.getbtnLoginAceptar().addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+
+				String dni = vista.login.gettFLoginUsuario().getText();
+				String password = java.lang.String.valueOf(vista.login.getpFLoginPassword().getPassword());
+
+				boolean validarLogin = sentencias.comprobarLogin(dni, password);
+				if (validarLogin == true) {
+
+					vista.mostrarPanel(vista.pagar);
+
+				} else {
+					JOptionPane.showMessageDialog(null, "esta mal");
+					vista.mostrarPanel(vista.login);
+				}
+
+			}
+		});
+		// ***************************REGISTRO**************************
+		vista.registro.getbtnSalir().addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				vista.mostrarPanel(vista.login);
+
+			}
+		});
+		vista.registro.getbtnLoginAceptar().addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+
+				// recogemos los datos del usuario
+				Cliente A1 = cogerdatosregistroUsuario();
+				int exito = sentencias.insertarUsuario(A1);
+				if (exito > 0) {
+					System.out.println("Es");
+				} else {
+					System.out.println("no");
+				}
+				resetRegistro();
+				vista.mostrarPanel(vista.login);
+
+			}
+
 		});
 
 	}

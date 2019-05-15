@@ -12,6 +12,7 @@ public class Ejecucion {
 		Modelo modelo = new Modelo();
 		Vista vista = new Vista();
 		ConsultasBBDD consultaBBDD = null;
+		@SuppressWarnings("unused")
 		Controlador Controlador = new Controlador(vista, modelo, consultaBBDD);
 		
 	}
