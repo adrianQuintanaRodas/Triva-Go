@@ -322,8 +322,7 @@ public class SentenciasBBDD {
 
 			ps = cn.prepareStatement(sql);
 			// asignamos los atributos a la consulta
-			System.out.println(v1.getId_reserva());
-			//ps.setInt(1, v1.getId_reserva());
+			
 			
 			System.out.println(v1.getNombre());
 			ps.setString(1, v1.getNombre());

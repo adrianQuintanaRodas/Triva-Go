@@ -230,23 +230,13 @@ public class Controlador {
 	}
 
 	private Reserva cogerdatosparareserva() {
-		// int id_reserva=0;
 		Reserva v1 = new Reserva();
-
 		v1.setNombre(sentencias.SacarNombreUsuario(vista.login.gettFLoginUsuario().getText()));
 		v1.setDni(vista.login.gettFLoginUsuario().getText());
-		/*
-		 * if(sentencias.sacarIdreserva(id_reserva)==id_reserva) { id_reserva++;
-		 * v1.setId_reserva(id_reserva); System.out.println("Este es el id"+id_reserva);
-		 * }else { v1.setId_reserva(id_reserva);
-		 * System.out.println("Este es el id ahora"+id_reserva); }
-		 */
-		//v1.setId_reserva(3);
 		v1.setUbicacion((java.lang.String) vista.eleccion.getComboBox_1().getSelectedItem());
 		v1.setEstrellas(vista.Resumen.getTextField_Estrellas().getText());
 		v1.setPrecio(Double.parseDouble(vista.Resumen.getTextField_Precio().getText()));
 		v1.setId(sentencias.SacarId(ubicacion));
-
 		return v1;
 
 	}
@@ -408,12 +398,12 @@ public class Controlador {
 					JOptionPane.showMessageDialog(null, "No has comprobado el finero introducido");
 
 				} else {
-					//int i = 0;
+					// int i = 0;
 					Reserva v1 = cogerdatosparareserva();
 					sentencias.insertarReserva(v1);
 					vista.mostrarPanel(vista.Devolver);
 					String vuelta = vista.pagar.getTextField_devolver().getText();
-					//i++;
+					// i++;
 					devolver(vuelta);
 				}
 			}
