@@ -210,6 +210,36 @@ public class SentenciasBBDD {
 
 	}
 
+	public int sacarIdreserva(int id) {
+		ResultSet rs;
+		int Id = 0;
+
+		String query;
+		query = "Select Id_reserva from reserva where Id_reserva='" + id + "'";
+		try {
+			stmt = cn.createStatement();
+			rs = stmt.executeQuery(query);
+			while (rs.next()) {
+				Id = rs.getInt("Id_reserva");
+			}
+
+			stmt.close();
+		} catch (Exception e) {
+			e.getMessage();
+		} finally {
+			if (stmt != null) {
+				try {
+					stmt.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		return Id;
+
+	}
+
 	public Double CalcularPrecio(Double precio, String huespedes, String Nnoches) {
 
 		Double preciofinal;
@@ -286,19 +316,27 @@ public class SentenciasBBDD {
 
 	public int insertarReserva(Reserva v1) {
 		int rs = 0;
-		String sql = "INSERT INTO reserva(Id_reserva,Dni,Nombre,Ubicacion,Estrellas,Precio,Id) VALUES(?,?,?,?,?,?,?)";
+		String sql = "INSERT INTO reserva(Nombre,Ubicacion,Estrellas,Precio,Id,Dni) VALUES(?,?,?,?,?,?)";
 
 		try {
 
 			ps = cn.prepareStatement(sql);
 			// asignamos los atributos a la consulta
-			ps.setInt(1, v1.getId_reserva());
-			ps.setString(2, v1.getDni());
-			ps.setString(3, v1.getNombre());
-			ps.setString(4, v1.getUbicacion());
-			ps.setString(5, v1.getEstrellas());
-			ps.setDouble(6, v1.getPrecio());
-			ps.setInt(7, v1.getId());
+			System.out.println(v1.getId_reserva());
+			//ps.setInt(1, v1.getId_reserva());
+			
+			System.out.println(v1.getNombre());
+			ps.setString(1, v1.getNombre());
+			System.out.println(v1.getUbicacion());
+			ps.setString(2, v1.getUbicacion());
+			System.out.println(v1.getEstrellas());
+			ps.setString(3, v1.getEstrellas());
+			System.out.println(v1.getPrecio());
+			ps.setDouble(4, v1.getPrecio());
+			System.out.println(v1.getId());
+			ps.setInt(5, v1.getId());
+			System.out.println(v1.getDni());
+			ps.setString(6, v1.getDni());
 
 			rs = ps.executeUpdate();
 

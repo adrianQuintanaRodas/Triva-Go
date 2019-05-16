@@ -3,11 +3,14 @@ package Vista;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
+import javax.swing.JButton;
+
 public class PanelDevolver extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	public JTextField textField_1;
 	private JTextField textField_vueltas;
+	private JButton btnVolverEleccion;
 
 	public PanelDevolver() {
 		setLayout(null);
@@ -27,6 +30,10 @@ public class PanelDevolver extends JPanel {
 		add(textField_vueltas);
 		textField_vueltas.setColumns(10);
 
+		btnVolverEleccion = new JButton("Inicio");
+		btnVolverEleccion.setBounds(336, 310, 89, 23);
+		add(btnVolverEleccion);
+
 	}
 
 	public JTextField getTextField_vueltas() {
@@ -44,4 +51,13 @@ public class PanelDevolver extends JPanel {
 	public void setTextField_1(JTextField textField_1) {
 		this.textField_1 = textField_1;
 	}
+
+	public JButton getBtnVolverEleccion() {
+		return btnVolverEleccion;
+	}
+
+	public void setBtnVolverEleccion(JButton btnVolverEleccion) {
+		this.btnVolverEleccion = btnVolverEleccion;
+	}
+
 }
