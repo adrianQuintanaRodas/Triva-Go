@@ -1,5 +1,8 @@
 package Modelo;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.ResultSet;
@@ -322,8 +325,7 @@ public class SentenciasBBDD {
 
 			ps = cn.prepareStatement(sql);
 			// asignamos los atributos a la consulta
-			
-			
+
 			System.out.println(v1.getNombre());
 			ps.setString(1, v1.getNombre());
 			System.out.println(v1.getUbicacion());
@@ -343,6 +345,29 @@ public class SentenciasBBDD {
 			System.out.println("Insert Erroneo");
 		}
 		return rs;
+
+	}
+
+	public void generarfichero() {
+		String nombreFichero = "Reservas";
+		String ruta = "C:\\Users\\IN1DM3B_08\\Desktop\\" + nombreFichero+".txt";
+		File archivo = new File(ruta);
+		BufferedWriter bw;
+
+		try {
+			if (archivo.exists()) {
+				bw = new BufferedWriter(new FileWriter(archivo));
+				System.out.println("Meter lo de reserva");
+
+			} else {
+				bw = new BufferedWriter(new FileWriter(archivo));
+				System.out.println("Crearlo y meter");
+			}
+			bw.close();
+
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 
 	}
 }

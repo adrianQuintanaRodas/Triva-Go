@@ -6,6 +6,7 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -240,6 +241,7 @@ public class Controlador {
 		return v1;
 
 	}
+	
 	// ************************************************************************************************************
 
 	private void InitializeEvents() {
@@ -406,6 +408,19 @@ public class Controlador {
 					// i++;
 					devolver(vuelta);
 				}
+			}
+		});
+
+		// *************************DEVOLVER***********************
+		vista.Devolver.getBtnVolverEleccion().addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			
+				vista.eleccion.setTextField_huespedes(null);
+				vista.eleccion.setTextField_Noches(null);
+				vista.eleccion.setDataida(null);
+				vista.eleccion.setDatavuelta(null);
+				vista.mostrarPanel(vista.eleccion);
+				sentencias.generarfichero();
 			}
 		});
 		// *************************LOGIN***********************
