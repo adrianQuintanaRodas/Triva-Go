@@ -19,6 +19,7 @@ import Modelo.Cliente;
 import Modelo.ConsultasBBDD;
 import Modelo.Hotel;
 import Modelo.Modelo;
+import Modelo.Reserva;
 import Modelo.SentenciasBBDD;
 import Vista.Vista;
 
@@ -72,7 +73,7 @@ public class Controlador {
 		;
 
 		if (cont20 > 0) {
-			z = cont20 + " billetes de 20€\n";
+			z = cont20 + " billetes de 20â‚¬\n";
 			cambios = cambios + z;
 		}
 
@@ -83,7 +84,7 @@ public class Controlador {
 		;
 
 		if (cont10 > 0) {
-			a = cont10 + " billetes de 10€\n";
+			a = cont10 + " billetes de 10â‚¬\n";
 			cambios = cambios + a;
 		}
 
@@ -95,7 +96,7 @@ public class Controlador {
 		;
 
 		if (cont5 > 0) {
-			b = cont5 + " billetes de 5€\n";
+			b = cont5 + " billetes de 5â‚¬\n";
 			cambios = cambios + b;
 		}
 
@@ -106,7 +107,7 @@ public class Controlador {
 		;
 
 		if (cont2 > 0) {
-			c = cont2 + " monedas de 2€\n";
+			c = cont2 + " monedas de 2â‚¬\n";
 			cambios = cambios + c;
 		}
 
@@ -117,7 +118,7 @@ public class Controlador {
 		;
 
 		if (cont1 > 0) {
-			d = cont1 + " monedas de 1€\n";
+			d = cont1 + " monedas de 1â‚¬\n";
 			cambios = cambios + d;
 		}
 
@@ -128,7 +129,7 @@ public class Controlador {
 		;
 
 		if (cont05 > 0) {
-			e = cont05 + " monedas de 0,50€\n";
+			e = cont05 + " monedas de 0,50â‚¬\n";
 			cambios = cambios + e;
 		}
 
@@ -140,7 +141,7 @@ public class Controlador {
 		;
 
 		if (cont02 > 0) {
-			f = cont02 + " monedas de 0,20€\n";
+			f = cont02 + " monedas de 0,20â‚¬\n";
 			cambios = cambios + f;
 		}
 
@@ -151,7 +152,7 @@ public class Controlador {
 		;
 
 		if (cont01 > 0) {
-			g = cont01 + " monedas de 0,10€\n";
+			g = cont01 + " monedas de 0,10â‚¬\n";
 			cambios = cambios + g;
 		}
 
@@ -162,7 +163,7 @@ public class Controlador {
 		;
 
 		if (cont005 > 0) {
-			h = cont005 + " monedas de 0,05€\n";
+			h = cont005 + " monedas de 0,05â‚¬\n";
 			cambios = cambios + h;
 		}
 
@@ -173,7 +174,7 @@ public class Controlador {
 		;
 
 		if (cont002 > 0) {
-			i = cont002 + " monedas de 0,02€\n";
+			i = cont002 + " monedas de 0,02â‚¬\n";
 			cambios = cambios + i;
 		}
 
@@ -184,52 +185,32 @@ public class Controlador {
 		;
 
 		if (cont001 > 0) {
-			j = cont001 + " monedas de 0,01€\n";
+			j = cont001 + " monedas de 0,01â‚¬\n";
 			cambios = cambios + j;
 		}
 		vista.Devolver.getTextField_vueltas().setText(cambios);
-	}
-
-	private boolean isPasswordCorrect(char[] j1, char[] j2) {
-		boolean valor = true;
-		int puntero = 0;
-		if (j1.length != j2.length) {
-			valor = false;
-		} else {
-			while ((valor) && (puntero < j1.length)) {
-				if (j1[puntero] != j2[puntero]) {
-					valor = false;
-				}
-				puntero++;
-			}
-		}
-		return valor;
 	}
 
 	private Cliente cogerdatosregistroUsuario() {
 		Cliente A1 = null;
 		// Al darle al boton registrar, Guardas los datos de la pantalla y los guarda en
 		// un objeto usuario
-		/*if(String.valueOf(vista.registro.getpFContrasenaRegistro()).equals(String.valueOf(vista.registro.getpFRegistroContrasena()))){
-		System.out.print("son iguales");
-		}else {
-		System.out.print("No son iguales");
-		}*/
-		if (vista.registro.getpFContrasenaRegistro().getPassword().equals(vista.registro.getpFRegistroContrasena().getPassword())) {
-			//if (vista.registro.getTxt_con1().getText().equals(vista.registro.getTxt_con2().getText())) {
-
+		if (java.lang.String.valueOf(vista.registro.getpFContrasenaRegistro().getPassword())
+				.equals(java.lang.String.valueOf(vista.registro.getpFRegistroContrasena().getPassword()))) {
+			System.out.print("son iguales");
 			A1 = new Cliente();
 
 			A1.setNombre(vista.registro.gettFNombreRegistro().getText());
 			A1.setDni(vista.registro.getTfDNIRegistro().getText());
 			A1.setApellido(vista.registro.getTextField_Apellido().getText());
-			A1.setcontraseña(String.valueOf(vista.registro.getpFContrasenaRegistro().getPassword()));
+			A1.setcontraseÃ±a(java.lang.String.valueOf(vista.registro.getpFContrasenaRegistro().getPassword()));
 			A1.setTelefono(Integer.parseInt(vista.registro.getTextField_Telefono().getText()));
 			A1.setgmail(vista.registro.getTextField_Gmail().getText());
 
 		} else {
-			JOptionPane.showMessageDialog(null, "La contraseña no coinciden");
+			System.out.print("No son iguales");
 		}
+
 		return A1;
 
 	}
@@ -247,6 +228,25 @@ public class Controlador {
 		vista.registro.getTextField_Telefono().setText(null);
 		;
 	}
+	
+	private Reserva cogerdatosparareserva() {
+		int id_reserva=0;
+		Reserva v1 = new Reserva();
+
+			v1.setNombre(sentencias.SacarNombreUsuario(vista.login.gettFLoginUsuario().getText()));
+			v1.setDni(vista.login.gettFLoginUsuario().getText());
+			v1.setId_reserva(id_reserva);
+			System.out.println("Este es el id ahora"+id_reserva);
+			v1.setUbicacion((java.lang.String) vista.eleccion.getComboBox_1().getSelectedItem());
+			v1.setEstrellas(vista.Resumen.getTextField_Estrellas().getText());
+			v1.setPrecio(Double.parseDouble(vista.Resumen.getTextField_Precio().getText()));
+			v1.setId(sentencias.SacarId(ubicacion));
+			id_reserva++;
+			
+		
+		return v1;
+	
+}
 	// ************************************************************************************************************
 
 	private void InitializeEvents() {
@@ -405,6 +405,8 @@ public class Controlador {
 					JOptionPane.showMessageDialog(null, "No has comprobado el finero introducido");
 
 				} else {
+					Reserva v1=cogerdatosparareserva();
+					sentencias.insertarReserva(v1);
 					vista.mostrarPanel(vista.Devolver);
 					String vuelta = vista.pagar.getTextField_devolver().getText();
 
@@ -427,15 +429,12 @@ public class Controlador {
 		});
 		vista.login.getbtnLoginAceptar().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-
 				String dni = vista.login.gettFLoginUsuario().getText();
 				String password = java.lang.String.valueOf(vista.login.getpFLoginPassword().getPassword());
 
-				boolean validarLogin = sentencias.comprobarLogin(dni, password);
-				if (validarLogin == true) {
-
+				if (sentencias.comprobarLog(dni, password) == 1) {
+					JOptionPane.showMessageDialog(null, "esta bien");
 					vista.mostrarPanel(vista.pagar);
-
 				} else {
 					JOptionPane.showMessageDialog(null, "esta mal");
 					vista.mostrarPanel(vista.login);

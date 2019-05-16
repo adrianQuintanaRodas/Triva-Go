@@ -1,8 +1,13 @@
 package Modelo;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+
+import javax.xml.bind.DatatypeConverter;
+
 import Modelo.ConsultasBBDD;
 import Modelo.Hotel;
 
@@ -20,7 +25,7 @@ public class SentenciasBBDD {
 		lista = new ArrayList<Hotel>();
 
 		String query;
-		query = "Select Nombre,Precio from hotel where Ubicaci髇='" + ubicacion + "'";
+		query = "Select Nombre,Precio from hotel where Ubicaci贸n='" + ubicacion + "'";
 		try {
 			stmt = cn.createStatement();
 			rs = stmt.executeQuery(query);
@@ -55,12 +60,43 @@ public class SentenciasBBDD {
 		String nombre = null;
 
 		String query;
-		query = "Select Nombre from hotel where Ubicaci髇='" + ubicacion + "'";
+		query = "Select Nombre from hotel where Ubicaci贸n='" + ubicacion + "'";
 		try {
 			stmt = cn.createStatement();
 			rs = stmt.executeQuery(query);
 			while (rs.next()) {
 				nombre = rs.getString("Nombre");
+			}
+
+			stmt.close();
+		} catch (Exception e) {
+			e.getMessage();
+		} finally {
+			if (stmt != null) {
+				try {
+					stmt.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		return nombre;
+
+	}
+
+	public String SacarNombreUsuario(String dni) {
+
+		ResultSet rs;
+		String nombre = null;
+
+		String query;
+		query = "Select nombre from usuario where Dni='" + dni + "'";
+		try {
+			stmt = cn.createStatement();
+			rs = stmt.executeQuery(query);
+			while (rs.next()) {
+				nombre = rs.getString("nombre");
 			}
 
 			stmt.close();
@@ -86,7 +122,7 @@ public class SentenciasBBDD {
 		String estrellas = null;
 
 		String query;
-		query = "Select Estrellas from hotel where Ubicaci髇='" + ubicacion + "'";
+		query = "Select Estrellas from hotel where Ubicaci贸n='" + ubicacion + "'";
 		try {
 			stmt = cn.createStatement();
 			rs = stmt.executeQuery(query);
@@ -117,7 +153,7 @@ public class SentenciasBBDD {
 		Double precio = null;
 
 		String query;
-		query = "Select Precio from hotel where Ubicaci髇='" + ubicacion + "'";
+		query = "Select Precio from hotel where Ubicaci贸n='" + ubicacion + "'";
 		try {
 			stmt = cn.createStatement();
 			rs = stmt.executeQuery(query);
@@ -143,6 +179,37 @@ public class SentenciasBBDD {
 
 	}
 
+	public int SacarId(String ubicacion) {
+
+		ResultSet rs;
+		int Id = 0;
+
+		String query;
+		query = "Select Id from hotel where Ubicaci贸n='" + ubicacion + "'";
+		try {
+			stmt = cn.createStatement();
+			rs = stmt.executeQuery(query);
+			while (rs.next()) {
+				Id = rs.getInt("Id");
+			}
+
+			stmt.close();
+		} catch (Exception e) {
+			e.getMessage();
+		} finally {
+			if (stmt != null) {
+				try {
+					stmt.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		return Id;
+
+	}
+
 	public Double CalcularPrecio(Double precio, String huespedes, String Nnoches) {
 
 		Double preciofinal;
@@ -151,24 +218,19 @@ public class SentenciasBBDD {
 
 	}
 
-	public boolean comprobarLogin(String dni, String password) {
-
+	public int comprobarLog(String usuario, String pass) {
 		ResultSet rs;
-		boolean correcto = true;
+		int resultado = 0;
 
 		String query;
-		query = "Select Dni,contrasenia from usuario";
+		System.out.println(encripta(pass));
+		query = "Select Dni,contrasenia from usuario where Dni='" + usuario + "' AND contrasenia='" + encripta(pass)
+				+ "'";
 		try {
 			stmt = cn.createStatement();
 			rs = stmt.executeQuery(query);
-			while (rs.next()) {
-				String dniC = rs.getString("Dni");
-				String passC = rs.getString("contrasenia");
-				if (dniC.equals(dni) && passC.equals(password)) {
-					correcto = true;
-				} else {
-					correcto = false;
-				}
+			if (rs.next()) {
+				resultado = 1;
 			}
 			stmt.close();
 		} catch (Exception e) {
@@ -183,7 +245,19 @@ public class SentenciasBBDD {
 				}
 			}
 		}
-		return correcto;
+		return resultado;
+	}
+
+	public String encripta(String cadena) {
+		String cadenaEncriptada = null;
+		try {
+			MessageDigest md = MessageDigest.getInstance("MD5");
+			md.update(cadena.getBytes());
+			cadenaEncriptada = DatatypeConverter.printHexBinary(md.digest()).toLowerCase();
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		}
+		return cadenaEncriptada;
 	}
 
 	public int insertarUsuario(Cliente A1) {
@@ -195,13 +269,11 @@ public class SentenciasBBDD {
 			ps = cn.prepareStatement(sql);
 
 			// asignamos los atributos a la consulta
-			ps.setString(1,   A1.getDni() );
-			System.out.println(A1.getDni());
-			ps.setString(2, A1.getcontrase馻());
-			System.out.println(A1.getcontrase馻());
+			ps.setString(1, A1.getDni());
+			ps.setString(2, encripta(A1.getcontrase帽a()));
 			ps.setString(3, A1.getNombre());
-			ps.setString(4, A1.getApellido() );
-			ps.setString(5,  A1.getgmail() );
+			ps.setString(4, A1.getApellido());
+			ps.setString(5, A1.getgmail());
 			ps.setInt(6, A1.gettelefono());
 
 			rs = ps.executeUpdate();
@@ -212,4 +284,28 @@ public class SentenciasBBDD {
 		return rs;
 	}
 
+	public int insertarReserva(Reserva v1) {
+		int rs = 0;
+		String sql = "INSERT INTO reserva(Id_reserva,Dni,Nombre,Ubicacion,Estrellas,Precio,Id) VALUES(?,?,?,?,?,?,?)";
+
+		try {
+
+			ps = cn.prepareStatement(sql);
+			// asignamos los atributos a la consulta
+			ps.setInt(1, v1.getId_reserva());
+			ps.setString(2, v1.getDni());
+			ps.setString(3, v1.getNombre());
+			ps.setString(4, v1.getUbicacion());
+			ps.setString(5, v1.getEstrellas());
+			ps.setDouble(6, v1.getPrecio());
+			ps.setInt(7, v1.getId());
+
+			rs = ps.executeUpdate();
+
+		} catch (Exception e) {
+			System.out.println("Insert Erroneo");
+		}
+		return rs;
+
+	}
 }
