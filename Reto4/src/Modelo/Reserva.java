@@ -1,15 +1,17 @@
 package Modelo;
 
+import java.util.Date;
+
+import com.mysql.fabric.xmlrpc.base.Data;
+
 public class Reserva {
 	private int Id_reserva;
 	private String Dni;
-	private String Nombre;
-	private String ubicacion;
-	private String Estrellas;
 	private Double Precio;
 	private int id;
-	private String tipo_cama;
-	private int Noches;
+	private int Id_habitacion;
+	private Date fecha;
+	
 
 	public int getId_reserva() {
 		return Id_reserva;
@@ -27,28 +29,20 @@ public class Reserva {
 		Dni = dni;
 	}
 
-	public String getNombre() {
-		return Nombre;
+	public int getId_habitacion() {
+		return Id_habitacion;
 	}
 
-	public void setNombre(String nombre) {
-		Nombre = nombre;
+	public void setId_habitacion(int id_habitacion) {
+		Id_habitacion = id_habitacion;
 	}
 
-	public String getUbicacion() {
-		return ubicacion;
+	public Date getFecha() {
+		return fecha;
 	}
 
-	public void setUbicacion(String ubicacion) {
-		this.ubicacion = ubicacion;
-	}
-
-	public String getEstrellas() {
-		return Estrellas;
-	}
-
-	public void setEstrellas(String estrellas) {
-		Estrellas = estrellas;
+	public void setFecha(Date date) {
+		this.fecha = date;
 	}
 
 	public Double getPrecio() {
@@ -68,33 +62,14 @@ public class Reserva {
 	}
 	
 
-	public String getTipo_cama() {
-		return tipo_cama;
-	}
-
-	public void setTipo_cama(String tipo_cama) {
-		this.tipo_cama = tipo_cama;
-	}
-
-	public int getNoches() {
-		return Noches;
-	}
-
-	public void setNoches(int noches) {
-		Noches = noches;
-	}
-
-	public Reserva(int Id_reserva, String Dni, String Nombre, String ubicacion, String Estrellas, Double Precio,
-			int id, String tipo_cama, int noches) {
+	public Reserva(int Id_reserva, String Dni, Double Precio,int id, Date fecha, int Id_habitacion) {
 		this.Id_reserva = Id_reserva;
 		this.Dni = Dni;
-		this.Nombre = Nombre;
-		this.ubicacion = ubicacion;
-		this.Estrellas = Estrellas;
+		this.Id_habitacion = Id_habitacion;
 		this.Precio = Precio;
 		this.id = id;
-		this.tipo_cama = tipo_cama;
-		this.Noches = noches;
+		this.fecha = fecha;
+		
 
 	}
 

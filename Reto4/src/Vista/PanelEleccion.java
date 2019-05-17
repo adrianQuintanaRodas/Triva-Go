@@ -27,6 +27,11 @@ public class PanelEleccion extends JPanel {
 	private JDateChooser datavuelta;
 	private JTextField textField_huespedes;
 	private JTextField textField_Noches;
+	private JTextField textField_Habitaciones;
+	private JLabel lblNoches;
+	private JLabel lblHabitaciones;
+	private JLabel lblHuespedes;
+	
 
 	public PanelEleccion() {
 		setLayout(null);
@@ -40,23 +45,25 @@ public class PanelEleccion extends JPanel {
 		add(BtnAtras);
 
 		comboBox_1 = new JComboBox<>();
-		comboBox_1.setBounds(166, 78, 123, 20);
-		comboBox_1.setModel(new DefaultComboBoxModel(new String[] {"-Selecciona-"}));
+
+		comboBox_1.setModel(
+				new DefaultComboBoxModel(new String[] {"-Selecciona-"}));
+		comboBox_1.setBounds(167, 62, 123, 20);
 		comboBox_1.setSelectedIndex(0);
 		add(comboBox_1);
 		lblCiudad = new JLabel("Ciudad:");
 		lblCiudad.setFont(new Font("Times New Roman", Font.PLAIN, 16));
-		lblCiudad.setBounds(42, 84, 74, 14);
+		lblCiudad.setBounds(42, 63, 74, 14);
 		add(lblCiudad);
 
 		lblFechaEntrada = new JLabel("Fecha Entrada:");
 		lblFechaEntrada.setFont(new Font("Times New Roman", Font.PLAIN, 16));
-		lblFechaEntrada.setBounds(42, 125, 109, 14);
+		lblFechaEntrada.setBounds(42, 101, 109, 14);
 		add(lblFechaEntrada);
 
 		lblFechaSalida = new JLabel("Fecha Salida:");
 		lblFechaSalida.setFont(new Font("Times New Roman", Font.PLAIN, 16));
-		lblFechaSalida.setBounds(42, 163, 96, 14);
+		lblFechaSalida.setBounds(42, 139, 96, 14);
 		add(lblFechaSalida);
 
 		btnBuscar = new JButton("Buscar");
@@ -65,24 +72,20 @@ public class PanelEleccion extends JPanel {
 		add(btnBuscar);
 
 		Dataida = new JDateChooser();
-		Dataida.setBounds(167, 119, 142, 20);
+		Dataida.setBounds(167, 93, 142, 20);
 		add(Dataida);
 
 		datavuelta = new JDateChooser();
-		datavuelta.setBounds(166, 157, 143, 20);
+		datavuelta.setBounds(166, 139, 143, 20);
 		add(datavuelta);
 
-		JLabel lblNmeroDePersonas = new JLabel("Hu\u00E9spedes:");
-		lblNmeroDePersonas.setFont(new Font("Times New Roman", Font.PLAIN, 16));
-		lblNmeroDePersonas.setBounds(42, 199, 96, 14);
-		add(lblNmeroDePersonas);
 
 		textField_huespedes = new JTextField();
-		textField_huespedes.setBounds(167, 198, 51, 20);
+		textField_huespedes.setBounds(167, 170, 51, 20);
 		add(textField_huespedes);
 		textField_huespedes.setColumns(10);
 
-		JLabel lblNoches = new JLabel("Noches:");
+		lblNoches = new JLabel("Noches:");
 		lblNoches.setFont(new Font("Times New Roman", Font.PLAIN, 16));
 		lblNoches.setBounds(42, 234, 96, 14);
 		add(lblNoches);
@@ -91,6 +94,21 @@ public class PanelEleccion extends JPanel {
 		textField_Noches.setColumns(10);
 		textField_Noches.setBounds(167, 233, 51, 20);
 		add(textField_Noches);
+		
+		lblHabitaciones = new JLabel("Habitaciones:");
+		lblHabitaciones.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+		lblHabitaciones.setBounds(42, 209, 96, 14);
+		add(lblHabitaciones);
+		
+		textField_Habitaciones = new JTextField();
+		textField_Habitaciones.setBounds(167, 202, 51, 20);
+		add(textField_Habitaciones);
+		textField_Habitaciones.setColumns(10);
+		
+		lblHuespedes = new JLabel("Huespedes:");
+		lblHuespedes.setFont(new Font("Times New Roman", Font.PLAIN, 16));
+		lblHuespedes.setBounds(42, 173, 96, 14);
+		add(lblHuespedes);
 
 	}
 
@@ -149,4 +167,22 @@ public class PanelEleccion extends JPanel {
 	public void setComboBox_1(JComboBox<String> comboBox_1) {
 		this.comboBox_1 = comboBox_1;
 	}
+
+	public JTextField getTextField_Habitaciones() {
+		return textField_Habitaciones;
+	}
+
+	public void setTextField_Habitaciones(JTextField textField_Habitaciones) {
+		this.textField_Habitaciones = textField_Habitaciones;
+	}
+
+	public JLabel getLblHabitaciones() {
+		return lblHabitaciones;
+	}
+
+	public void setLblHabitaciones(JLabel lblHabitaciones) {
+		this.lblHabitaciones = lblHabitaciones;
+	}
+	
+	
 }

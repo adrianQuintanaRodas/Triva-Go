@@ -2,6 +2,7 @@ package Modelo;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -331,21 +332,22 @@ public class SentenciasBBDD {
 
 	public int insertarReserva(Reserva v1) {
 		int rs = 0;
-		String sql = "INSERT INTO reserva(Nombre,Ubicacion,Estrellas,Precio,Id,Dni,Tipo_cama,noches) VALUES(?,?,?,?,?,?,?,?)";
+		String sql = "INSERT INTO reserva(Precio,Id,Dni,Id_habitacion,Fecha) VALUES(?,?,?,?,?)";
 
 		try {
 
 			ps = cn.prepareStatement(sql);
 			// asignamos los atributos a la consulta
 
-			ps.setString(1, v1.getNombre());
-			ps.setString(2, v1.getUbicacion());
-			ps.setString(3, v1.getEstrellas());
-			ps.setDouble(4, v1.getPrecio());
-			ps.setInt(5, v1.getId());
-			ps.setString(6, v1.getDni());
-			ps.setString(7, v1.getTipo_cama());
-			ps.setInt(8, v1.getNoches());
+			System.out.println(v1.getPrecio());
+			ps.setDouble(1, v1.getPrecio());
+			System.out.println(v1.getId());
+			ps.setInt(2, v1.getId());
+			System.out.println(v1.getDni());
+			ps.setString(3, v1.getDni());
+			ps.setInt(4, 3);
+			System.out.println(v1.getFecha());
+			ps.setDate(5,(Date) v1.getFecha());
 
 			rs = ps.executeUpdate();
 
@@ -357,9 +359,10 @@ public class SentenciasBBDD {
 	}
 
 	public ArrayList<Reserva> datosReserva(String dni) {
-		String nombre, dniReserva, ubicacion, tipoCama;
-		int idReserva, estrellas, noches, idAlojamiento;
+		String dniReserva;
+		int idReserva, idAlojamiento, tipoCama;
 		double precio;
+		Date fecha;
 		ResultSet rs;
 		String sql = "SELECT * FROM reserva where Dni='" + dni + "'";
 		ArrayList<Reserva> r1Array = new ArrayList<Reserva>();
@@ -370,17 +373,13 @@ public class SentenciasBBDD {
 			while (rs.next()) {
 				idReserva = rs.getInt(1);
 				System.out.println("id_resrva" + idReserva);
-				nombre = rs.getString(2);
-				ubicacion = rs.getString(3);
-				estrellas = rs.getInt(4);
-				precio = rs.getDouble(5);
-				idAlojamiento = rs.getInt(6);
-				dniReserva = rs.getString(7);
-				tipoCama = rs.getString(8);
-				noches = rs.getInt(9);
-				System.out.println("noche" + noches);
-				v1 = new Reserva(idReserva, dniReserva, nombre, ubicacion, String.valueOf(estrellas), precio,
-						idAlojamiento, tipoCama, noches);
+				precio = rs.getDouble(2);
+				idAlojamiento = rs.getInt(3);
+				dniReserva = rs.getString(4);
+				tipoCama = rs.getInt(5);
+				fecha = rs.getDate(6);
+				System.out.println("noche" + fecha);
+				v1 = new Reserva(idReserva, dniReserva, precio, idAlojamiento, fecha, tipoCama);
 				r1Array.add(v1);
 			}
 

@@ -12,8 +12,10 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Calendar;
-
+import java.util.Date;
 import java.lang.String;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
@@ -233,16 +235,33 @@ public class Controlador {
 		;
 	}
 
-	private Reserva cogerdatosparareserva() {
+	public Date fechahoy() {
+		Date fecha = new Date();
+		SimpleDateFormat formato;
+		String fechaDeHoy = null;
+		try {
+			
+			formato = new SimpleDateFormat("yyyy-MM-dd");
+			fechaDeHoy = formato.format(fecha);
+System.out.println(fechaDeHoy);
+			fecha=formato.parse(fechaDeHoy);
+			System.out.println(fecha);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return fecha;
+
+		
+	}
+
+	private Reserva cogerdatosparareserva() throws ParseException {
+
 		Reserva v1 = new Reserva();
-		v1.setNombre(sentencias.SacarNombreUsuario(vista.login.gettFLoginUsuario().getText()));
 		v1.setDni(vista.login.gettFLoginUsuario().getText());
-		v1.setUbicacion((java.lang.String) vista.eleccion.getComboBox_1().getSelectedItem());
-		v1.setEstrellas(vista.Resumen.getTextField_Estrellas().getText());
+		v1.setFecha(fechahoy());
 		v1.setPrecio(Double.parseDouble(vista.Resumen.getTextField_Precio().getText()));
 		v1.setId(sentencias.SacarId(ubicacion));
-		v1.setTipo_cama((java.lang.String) vista.listado.getComboBox_2().getSelectedItem());
-		v1.setNoches(Integer.parseInt(vista.eleccion.getTextField_Noches().getText()));
 		return v1;
 
 	}
@@ -308,6 +327,7 @@ public class Controlador {
 	private void InitializeEvents() {
 		vista.panelPresentacion.getbtnPresentacionTermibus().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				fechahoy();
 				vista.mostrarPanel(vista.licencia);
 				sentencias.cogerUbicacion(vista.eleccion.getComboBox_1());
 
@@ -354,7 +374,8 @@ public class Controlador {
 					}
 					vista.listado.getTable().setModel(model);
 					vista.listado.getScrollPane().setViewportView(vista.listado.getTable());
-				//	int noches = Integer.parseInt(vista.eleccion.getTextField_Noches().getText());
+					// int noches =
+					// Integer.parseInt(vista.eleccion.getTextField_Noches().getText());
 					if (vista.eleccion.getTextField_Noches().getText().equals("")) {
 						JOptionPane.showMessageDialog(null, "Introduce al menos un noche");
 						vista.eleccion.getTextField_Noches().setText("1");
@@ -470,17 +491,24 @@ public class Controlador {
 		});
 		vista.pagar.getbtnDevolver().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				try {
+					if (vista.pagar.getTextField_devolver().getText().isEmpty()) {
+						JOptionPane.showMessageDialog(null, "No has comprobado el dinero introducido");
 
-				if (vista.pagar.getTextField_devolver().getText().isEmpty()) {
-					JOptionPane.showMessageDialog(null, "No has comprobado el dinero introducido");
+					} else {
+						Reserva v1;
 
-				} else {
-					Reserva v1 = cogerdatosparareserva();
-					sentencias.insertarReserva(v1);
-					vista.mostrarPanel(vista.Devolver);
-					String vuelta = vista.pagar.getTextField_devolver().getText();
+						v1 = cogerdatosparareserva();
 
-					devolver(vuelta);
+						sentencias.insertarReserva(v1);
+						vista.mostrarPanel(vista.Devolver);
+						String vuelta = vista.pagar.getTextField_devolver().getText();
+
+						devolver(vuelta);
+					}
+				} catch (ParseException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
 			}
 		});
