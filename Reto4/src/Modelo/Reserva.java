@@ -8,6 +8,8 @@ public class Reserva {
 	private String Estrellas;
 	private Double Precio;
 	private int id;
+	private String tipo_cama;
+	private int Noches;
 
 	public int getId_reserva() {
 		return Id_reserva;
@@ -64,9 +66,26 @@ public class Reserva {
 	public void setId(int id) {
 		this.id = id;
 	}
+	
+
+	public String getTipo_cama() {
+		return tipo_cama;
+	}
+
+	public void setTipo_cama(String tipo_cama) {
+		this.tipo_cama = tipo_cama;
+	}
+
+	public int getNoches() {
+		return Noches;
+	}
+
+	public void setNoches(int noches) {
+		Noches = noches;
+	}
 
 	public Reserva(int Id_reserva, String Dni, String Nombre, String ubicacion, String Estrellas, Double Precio,
-			int id) {
+			int id, String tipo_cama, int noches) {
 		this.Id_reserva = Id_reserva;
 		this.Dni = Dni;
 		this.Nombre = Nombre;
@@ -74,6 +93,8 @@ public class Reserva {
 		this.Estrellas = Estrellas;
 		this.Precio = Precio;
 		this.id = id;
+		this.tipo_cama = tipo_cama;
+		this.Noches = noches;
 
 	}
 

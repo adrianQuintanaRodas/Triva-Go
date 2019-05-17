@@ -1,16 +1,12 @@
 package Modelo;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
+import javax.swing.JComboBox;
 import javax.xml.bind.DatatypeConverter;
-
 import Modelo.ConsultasBBDD;
 import Modelo.Hotel;
 
@@ -21,6 +17,24 @@ public class SentenciasBBDD {
 	static ConsultasBBDD mysql = new ConsultasBBDD();
 	static java.sql.Connection cn = mysql.conectarmySQL();
 	static java.sql.PreparedStatement ps = null;
+
+	public void cogerUbicacion(JComboBox<String> ubicaciones) {
+		ResultSet rs;
+		String query;
+		query = "Select distinct Ubicación from hotel";
+		try {
+			stmt = cn.createStatement();
+			rs = stmt.executeQuery(query);
+			while (rs.next()) {
+				String nombreUbi = rs.getString("Ubicación");
+				ubicaciones.addItem(nombreUbi);
+
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+
+	}
 
 	public ArrayList<Hotel> visualizarCiudad(String ubicacion) {
 
@@ -256,7 +270,6 @@ public class SentenciasBBDD {
 		int resultado = 0;
 
 		String query;
-		System.out.println(encripta(pass));
 		query = "Select Dni,contrasenia from usuario where Dni='" + usuario + "' AND contrasenia='" + encripta(pass)
 				+ "'";
 		try {
@@ -298,7 +311,6 @@ public class SentenciasBBDD {
 		String sql = "INSERT INTO usuario(Dni,contrasenia,nombre,apellido,gmail,telefono) VALUES(?,?,?,?,?,?)";
 
 		try {
-			System.out.println("Entra en el prepared");
 			ps = cn.prepareStatement(sql);
 
 			// asignamos los atributos a la consulta
@@ -319,25 +331,21 @@ public class SentenciasBBDD {
 
 	public int insertarReserva(Reserva v1) {
 		int rs = 0;
-		String sql = "INSERT INTO reserva(Nombre,Ubicacion,Estrellas,Precio,Id,Dni) VALUES(?,?,?,?,?,?)";
+		String sql = "INSERT INTO reserva(Nombre,Ubicacion,Estrellas,Precio,Id,Dni,Tipo_cama,noches) VALUES(?,?,?,?,?,?,?,?)";
 
 		try {
 
 			ps = cn.prepareStatement(sql);
 			// asignamos los atributos a la consulta
 
-			System.out.println(v1.getNombre());
 			ps.setString(1, v1.getNombre());
-			System.out.println(v1.getUbicacion());
 			ps.setString(2, v1.getUbicacion());
-			System.out.println(v1.getEstrellas());
 			ps.setString(3, v1.getEstrellas());
-			System.out.println(v1.getPrecio());
 			ps.setDouble(4, v1.getPrecio());
-			System.out.println(v1.getId());
 			ps.setInt(5, v1.getId());
-			System.out.println(v1.getDni());
 			ps.setString(6, v1.getDni());
+			ps.setString(7, v1.getTipo_cama());
+			ps.setInt(8, v1.getNoches());
 
 			rs = ps.executeUpdate();
 
@@ -348,26 +356,40 @@ public class SentenciasBBDD {
 
 	}
 
-	public void generarfichero() {
-		String nombreFichero = "Reservas";
-		String ruta = "C:\\Users\\IN1DM3B_08\\Desktop\\" + nombreFichero+".txt";
-		File archivo = new File(ruta);
-		BufferedWriter bw;
-
+	public ArrayList<Reserva> datosReserva(String dni) {
+		String nombre, dniReserva, ubicacion, tipoCama;
+		int idReserva, estrellas, noches, idAlojamiento;
+		double precio;
+		ResultSet rs;
+		String sql = "SELECT * FROM reserva where Dni='" + dni + "'";
+		ArrayList<Reserva> r1Array = new ArrayList<Reserva>();
+		Reserva v1;
 		try {
-			if (archivo.exists()) {
-				bw = new BufferedWriter(new FileWriter(archivo));
-				System.out.println("Meter lo de reserva");
-
-			} else {
-				bw = new BufferedWriter(new FileWriter(archivo));
-				System.out.println("Crearlo y meter");
+			stmt = cn.createStatement();
+			rs = stmt.executeQuery(sql);
+			while (rs.next()) {
+				idReserva = rs.getInt(1);
+				System.out.println("id_resrva" + idReserva);
+				nombre = rs.getString(2);
+				ubicacion = rs.getString(3);
+				estrellas = rs.getInt(4);
+				precio = rs.getDouble(5);
+				idAlojamiento = rs.getInt(6);
+				dniReserva = rs.getString(7);
+				tipoCama = rs.getString(8);
+				noches = rs.getInt(9);
+				System.out.println("noche" + noches);
+				v1 = new Reserva(idReserva, dniReserva, nombre, ubicacion, String.valueOf(estrellas), precio,
+						idAlojamiento, tipoCama, noches);
+				r1Array.add(v1);
 			}
-			bw.close();
 
+			stmt.close();
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.getMessage();
 		}
+		return r1Array;
 
 	}
+
 }

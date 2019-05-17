@@ -1,6 +1,9 @@
 package Vista;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -14,6 +17,8 @@ public class PanelListado extends JPanel {
 	private JScrollPane ScrollPane;
 	private JButton BtnReservar;
 	private JButton BtnAtras;
+	private JComboBox<String> comboBox_2;
+	private JLabel lblTipoDeCama;
 
 	public PanelListado() {
 		setLayout(null);
@@ -35,6 +40,15 @@ public class PanelListado extends JPanel {
 		add(ScrollPane);
 
 		Table = new JTable();
+		
+		comboBox_2 = new JComboBox<>();
+		comboBox_2.setModel(new DefaultComboBoxModel<String>(new String[] { "Doble", "Individual", "Matrimonio" }));
+		comboBox_2.setBounds(110, 337, 123, 20);
+		add(comboBox_2);
+		
+		lblTipoDeCama = new JLabel("Tipo de cama");
+		lblTipoDeCama.setBounds(20, 340, 86, 14);
+		add(lblTipoDeCama);
 
 	}
 
@@ -68,5 +82,20 @@ public class PanelListado extends JPanel {
 
 	public void setBtnAtras() {
 		this.BtnAtras.setText("Atras");
+	}
+	public JComboBox<String> getComboBox_2() {
+		return comboBox_2;
+	}
+
+	public void setComboBox_2(JComboBox<String> comboBox_2) {
+		this.comboBox_2 = comboBox_2;
+	}
+
+	public JLabel getLblTipoDeCama() {
+		return lblTipoDeCama;
+	}
+
+	public void setLblTipoDeCama(JLabel lblTipoDeCama) {
+		this.lblTipoDeCama = lblTipoDeCama;
 	}
 }

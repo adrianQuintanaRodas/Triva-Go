@@ -6,7 +6,10 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -74,7 +77,7 @@ public class Controlador {
 		;
 
 		if (cont20 > 0) {
-			z = cont20 + " billetes de 20€\n";
+			z = cont20 + " billetes de 20€";
 			cambios = cambios + z;
 		}
 
@@ -85,7 +88,7 @@ public class Controlador {
 		;
 
 		if (cont10 > 0) {
-			a = cont10 + " billetes de 10€\n";
+			a = cont10 + " billetes de 10€";
 			cambios = cambios + a;
 		}
 
@@ -97,7 +100,7 @@ public class Controlador {
 		;
 
 		if (cont5 > 0) {
-			b = cont5 + " billetes de 5€\n";
+			b = cont5 + " billetes de 5€";
 			cambios = cambios + b;
 		}
 
@@ -108,7 +111,7 @@ public class Controlador {
 		;
 
 		if (cont2 > 0) {
-			c = cont2 + " monedas de 2€\n";
+			c = cont2 + " monedas de 2€";
 			cambios = cambios + c;
 		}
 
@@ -119,7 +122,7 @@ public class Controlador {
 		;
 
 		if (cont1 > 0) {
-			d = cont1 + " monedas de 1€\n";
+			d = cont1 + " monedas de 1€";
 			cambios = cambios + d;
 		}
 
@@ -130,7 +133,7 @@ public class Controlador {
 		;
 
 		if (cont05 > 0) {
-			e = cont05 + " monedas de 0,50€\n";
+			e = cont05 + " monedas de 0,50cent";
 			cambios = cambios + e;
 		}
 
@@ -142,7 +145,7 @@ public class Controlador {
 		;
 
 		if (cont02 > 0) {
-			f = cont02 + " monedas de 0,20€\n";
+			f = cont02 + " monedas de 0,20cent";
 			cambios = cambios + f;
 		}
 
@@ -153,7 +156,7 @@ public class Controlador {
 		;
 
 		if (cont01 > 0) {
-			g = cont01 + " monedas de 0,10€\n";
+			g = cont01 + " monedas de 0,10cent";
 			cambios = cambios + g;
 		}
 
@@ -164,7 +167,7 @@ public class Controlador {
 		;
 
 		if (cont005 > 0) {
-			h = cont005 + " monedas de 0,05€\n";
+			h = cont005 + " monedas de 0,05cent";
 			cambios = cambios + h;
 		}
 
@@ -175,7 +178,7 @@ public class Controlador {
 		;
 
 		if (cont002 > 0) {
-			i = cont002 + " monedas de 0,02€\n";
+			i = cont002 + " monedas de 0,02cent";
 			cambios = cambios + i;
 		}
 
@@ -186,7 +189,7 @@ public class Controlador {
 		;
 
 		if (cont001 > 0) {
-			j = cont001 + " monedas de 0,01€\n";
+			j = cont001 + " monedas de 0,01cent";
 			cambios = cambios + j;
 		}
 		vista.Devolver.getTextField_vueltas().setText(cambios);
@@ -238,16 +241,75 @@ public class Controlador {
 		v1.setEstrellas(vista.Resumen.getTextField_Estrellas().getText());
 		v1.setPrecio(Double.parseDouble(vista.Resumen.getTextField_Precio().getText()));
 		v1.setId(sentencias.SacarId(ubicacion));
+		v1.setTipo_cama((java.lang.String) vista.listado.getComboBox_2().getSelectedItem());
+		v1.setNoches(Integer.parseInt(vista.eleccion.getTextField_Noches().getText()));
 		return v1;
 
 	}
-	
+
+	public void generarfichero() throws IOException {
+		String nombre = JOptionPane.showInputDialog(null, "Introduce el noombre del fichero");
+		File ruta = new File("c:/ficheros");
+		File f = new File(ruta, nombre + ".txt");
+		System.out.println(f.getParent());
+		System.out.println(ruta.getAbsolutePath());
+		System.out.println(ruta.getParent());
+
+		try {
+			FileWriter fw = new FileWriter(f);
+			PrintWriter impresora = new PrintWriter(fw);
+			if (!f.exists()) { // se comprueba si el fichero existe o no
+				System.out.println("Fichero " + f.getName() + " no existe");
+				if (!ruta.exists()) { // se comprueba si la ruta existe o no
+					System.out.println("El directorio " + ruta.getName() + " no existe");
+					if (ruta.mkdir()) { // se crea la ruta. Si se ha creado correctamente
+						System.out.println("Directorio creado");
+						if (f.createNewFile()) { // se crea el fichero. Si se ha creado correctamente
+							System.out.println("Fichero " + f.getName() + " creado");
+
+							/*
+							 * impresora.println("\tRESERVAS DE:"+dni);
+							 * impresora.println("------------------"); impresora.println(""); for(int
+							 * i=0;i<lista.size();i++) {
+							 * impresora.println(lista.get(i).getId_reserva()+"\t"+lista.get(i).getDni()+
+							 * "\t"+ lista.get(i).getDni()+"\t"+ lista.get(i).getNombre()+"\t"+
+							 * lista.get(i).getUbicacion()+"\t"+ lista.get(i).getEstrellas()+"\t"+
+							 * lista.get(i).getPrecio()+"\t"+ lista.get(i).getId()+"\t"+
+							 * lista.get(i).getTipo_cama()+"\t"+ lista.get(i).getNoches());
+							 * 
+							 * } impresora.println(""); impresora.close();
+							 */
+						} else {
+							System.out.println("No se ha podido crear " + f.getName());
+						}
+					} else {
+						System.out.println("No se ha podido crear " + ruta.getName());
+					}
+				} else { // si la ruta existe creamos el fichero
+					if (f.createNewFile()) {
+						System.out.println("Fichero " + f.getName() + " creado");
+
+					} else {
+						System.out.println("No se ha podido crear " + f.getName());
+					}
+				}
+			} else { // el fichero existe. Mostramos el tamaño
+				System.out.println("Fichero " + f.getName() + " existe");
+				impresora.println("Nombre Hotel:" + sentencias.SacarNombre(ubicacion) + "     Precio Hotel:"
+						+ sentencias.SacarPrecio(ubicacion));
+				impresora.close();
+			}
+		} catch (Exception e) {
+			System.out.println("Exception");
+		}
+	}
 	// ************************************************************************************************************
 
 	private void InitializeEvents() {
 		vista.panelPresentacion.getbtnPresentacionTermibus().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				vista.mostrarPanel(vista.licencia);
+				sentencias.cogerUbicacion(vista.eleccion.getComboBox_1());
 
 			}
 		});
@@ -262,37 +324,50 @@ public class Controlador {
 		// La accion es que mete a la tabla con la ubicacion que pase del combobox
 		vista.eleccion.getbtnBuscar().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				vista.mostrarPanel(vista.listado);
-				vista.listado.getTable().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-				DefaultTableModel model = new DefaultTableModel() {
+				if (!(vista.eleccion.getComboBox_1().getSelectedItem().equals("-Selecciona-"))) {
+					vista.listado.getTable().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+					DefaultTableModel model = new DefaultTableModel() {
 
-					private static final long serialVersionUID = 1L;
+						private static final long serialVersionUID = 1L;
 
-					@Override
-					public boolean isCellEditable(int row, int column) {
-						// all cells false
-						return false;
+						@Override
+						public boolean isCellEditable(int row, int column) {
+							// all cells false
+							return false;
+						}
+					};
+
+					ArrayList<Hotel> hotel1 = sentencias.visualizarCiudad(ubicacion);
+					Object[] columnas = new Object[2];
+					columnas[0] = "Nombre";
+					columnas[1] = "Precio";
+
+					model.setColumnIdentifiers(columnas);
+					Object[] filas = new Object[2];
+					for (int i = 0; i < hotel1.size(); i++) {
+
+						filas[0] = hotel1.get(i).getNombre();
+
+						filas[1] = hotel1.get(i).getPrecio();
+
+						model.addRow(filas);
 					}
-				};
+					vista.listado.getTable().setModel(model);
+					vista.listado.getScrollPane().setViewportView(vista.listado.getTable());
+				//	int noches = Integer.parseInt(vista.eleccion.getTextField_Noches().getText());
+					if (vista.eleccion.getTextField_Noches().getText().equals("")) {
+						JOptionPane.showMessageDialog(null, "Introduce al menos un noche");
+						vista.eleccion.getTextField_Noches().setText("1");
+					} else {
+						vista.mostrarPanel(vista.listado);
+					}
 
-				ArrayList<Hotel> hotel1 = sentencias.visualizarCiudad(ubicacion);
-				Object[] columnas = new Object[2];
-				columnas[0] = "Nombre";
-				columnas[1] = "Precio";
+					String tipo_cama = (String) vista.listado.getComboBox_2().getSelectedItem();
+					vista.Resumen.getTextField_Tipo_cama().setText(tipo_cama);
 
-				model.setColumnIdentifiers(columnas);
-				Object[] filas = new Object[2];
-				for (int i = 0; i < hotel1.size(); i++) {
-
-					filas[0] = hotel1.get(i).getNombre();
-
-					filas[1] = hotel1.get(i).getPrecio();
-
-					model.addRow(filas);
+				} else {
+					JOptionPane.showMessageDialog(null, "Selecciona un hotel");
 				}
-				vista.listado.getTable().setModel(model);
-				vista.listado.getScrollPane().setViewportView(vista.listado.getTable());
-
 			}
 		});
 		vista.eleccion.getBtnAtras().addActionListener(new ActionListener() {
@@ -390,37 +465,23 @@ public class Controlador {
 		});
 		vista.pagar.getbtnCancelar().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				vista.mostrarPanel(vista.licencia);
+				vista.mostrarPanel(vista.listado);
 			}
 		});
 		vista.pagar.getbtnDevolver().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
 				if (vista.pagar.getTextField_devolver().getText().isEmpty()) {
-					JOptionPane.showMessageDialog(null, "No has comprobado el finero introducido");
+					JOptionPane.showMessageDialog(null, "No has comprobado el dinero introducido");
 
 				} else {
-					// int i = 0;
 					Reserva v1 = cogerdatosparareserva();
 					sentencias.insertarReserva(v1);
 					vista.mostrarPanel(vista.Devolver);
 					String vuelta = vista.pagar.getTextField_devolver().getText();
-					// i++;
+
 					devolver(vuelta);
 				}
-			}
-		});
-
-		// *************************DEVOLVER***********************
-		vista.Devolver.getBtnVolverEleccion().addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			
-				vista.eleccion.setTextField_huespedes(null);
-				vista.eleccion.setTextField_Noches(null);
-				vista.eleccion.setDataida(null);
-				vista.eleccion.setDatavuelta(null);
-				vista.mostrarPanel(vista.eleccion);
-				sentencias.generarfichero();
 			}
 		});
 		// *************************LOGIN***********************
@@ -474,6 +535,21 @@ public class Controlador {
 
 			}
 
+		});
+		vista.Devolver.getBtnVolverEleccion().addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				vista.eleccion.getTextField_huespedes().setText(null);
+				vista.eleccion.getTextField_Noches().setText(null);
+				String dni = vista.login.gettFLoginUsuario().getText();
+				try {
+					generarfichero();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				vista.mostrarPanel(vista.eleccion);
+
+			}
 		});
 
 	}

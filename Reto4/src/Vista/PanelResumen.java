@@ -4,8 +4,6 @@ import javax.swing.JPanel;
 
 import java.awt.Color;
 import java.awt.SystemColor;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JTextField;
@@ -22,6 +20,7 @@ public class PanelResumen extends JPanel {
 	private JLabel LblEstrellas;
 	private JLabel LblPrecio;
 	private JLabel LblNnoches;
+	private JLabel LblTipo_cama;
 
 	private JButton BtnPagar;
 	private JButton BtnAtras;
@@ -32,6 +31,7 @@ public class PanelResumen extends JPanel {
 	private JTextField TextField_Estrellas;
 	private JTextField TextField_Precio;
 	private JTextField TextField_Nnoches;
+	private JTextField TextField_Tipo_cama;
 
 	private JPanel panel;
 	private JLabel lblPrecioFinal;
@@ -129,10 +129,16 @@ public class PanelResumen extends JPanel {
 		textField_precioFinal.setColumns(10);
 		textField_precioFinal.setBounds(292, 261, 86, 22);
 		panel.add(textField_precioFinal);
-		BtnPagar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
+		
+		LblTipo_cama = new JLabel("Tipo cama:");
+		LblTipo_cama.setBounds(310, 127, 97, 20);
+		panel.add(LblTipo_cama);
+		
+		TextField_Tipo_cama = new JTextField();
+		TextField_Tipo_cama.setBounds(310, 158, 97, 22);
+		panel.add(TextField_Tipo_cama);
+		TextField_Tipo_cama.setColumns(10);
+		
 
 	}
 
@@ -270,6 +276,21 @@ public class PanelResumen extends JPanel {
 
 	public void setTextField_Nnoches() {
 		this.TextField_Nnoches.setText("");
+	}
+	public JLabel getLblTipo_cama() {
+		return LblTipo_cama;
+	}
+
+	public void setLblTipo_cama(JLabel lblTipo_cama) {
+		LblTipo_cama = lblTipo_cama;
+	}
+
+	public JTextField getTextField_Tipo_cama() {
+		return TextField_Tipo_cama;
+	}
+
+	public void setTextField_Tipo_cama(JTextField textField_Tipo_cama) {
+		TextField_Tipo_cama = textField_Tipo_cama;
 	}
 
 }

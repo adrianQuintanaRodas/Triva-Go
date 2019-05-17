@@ -40,10 +40,8 @@ public class PanelEleccion extends JPanel {
 		add(BtnAtras);
 
 		comboBox_1 = new JComboBox<>();
-
-		comboBox_1.setModel(
-				new DefaultComboBoxModel<String>(new String[] { "Salamanca", "Barcelona", "Bilbao", "Madrid", "Sevilla" }));
 		comboBox_1.setBounds(166, 78, 123, 20);
+		comboBox_1.setModel(new DefaultComboBoxModel(new String[] {"-Selecciona-"}));
 		comboBox_1.setSelectedIndex(0);
 		add(comboBox_1);
 		lblCiudad = new JLabel("Ciudad:");
