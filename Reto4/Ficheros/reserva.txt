@@ -1,0 +1,6 @@
+	RESERVAS HASTA AHORA DE:asa
+------------------
+Nº Reserva	Dni Cliente	Nombre Hotel			Tipo Cama	Fecha	Precio
+25			12345679R	El Gordo	2	2019-05-20	20.0
+26			12345679R	El Gordo	2	2019-05-20	20.0
+

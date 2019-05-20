@@ -1,0 +1,6 @@
+	RESERVAS HASTA AHORA DE:hola
+------------------
+Nº Reserva	Dni Cliente	Nombre Hotel			Tipo Cama	Fecha	Precio
+23			98765431V	Superman sin capa	2	2019-05-20	20.0
+24			98765431V	Superman sin capa	2	2019-05-20	20.0
+
