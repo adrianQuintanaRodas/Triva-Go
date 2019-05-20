@@ -67,7 +67,7 @@ public class PanelEleccion extends JPanel {
 		add(lblFechaSalida);
 
 		btnBuscar = new JButton("Buscar");
-		btnBuscar.setIcon(new ImageIcon("C:\\Users\\IN1DM3B_08\\Downloads\\busqueda (1).png"));
+		btnBuscar.setIcon(new ImageIcon("Imagenes/busqueda (1).png"));
 		btnBuscar.setBounds(207, 279, 102, 23);
 		add(btnBuscar);
 

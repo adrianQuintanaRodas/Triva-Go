@@ -42,7 +42,7 @@ public class PanelListado extends JPanel {
 		Table = new JTable();
 		
 		comboBox_2 = new JComboBox<>();
-		comboBox_2.setModel(new DefaultComboBoxModel<String>(new String[] { "Doble", "Individual", "Matrimonio" }));
+		comboBox_2.setModel(new DefaultComboBoxModel(new String[] {"-Selecciona-"}));
 		comboBox_2.setBounds(110, 337, 123, 20);
 		add(comboBox_2);
 		

@@ -4,6 +4,8 @@ import javax.swing.JPanel;
 
 import java.awt.Color;
 import java.awt.SystemColor;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JTextField;
@@ -36,6 +38,7 @@ public class PanelResumen extends JPanel {
 	private JPanel panel;
 	private JLabel lblPrecioFinal;
 	private JTextField textField_precioFinal;
+	private JTextField textField_id;
 
 	/**
 	 * Create the panel.
@@ -51,12 +54,12 @@ public class PanelResumen extends JPanel {
 		panel.setLayout(null);
 
 		TextField_nombre = new JTextField();
-		TextField_nombre.setBounds(166, 63, 116, 20);
+		TextField_nombre.setBounds(166, 63, 233, 20);
 		panel.add(TextField_nombre);
 		TextField_nombre.setColumns(10);
 
 		TextField_ciudad = new JTextField();
-		TextField_ciudad.setBounds(310, 94, 86, 22);
+		TextField_ciudad.setBounds(313, 127, 86, 22);
 		panel.add(TextField_ciudad);
 		TextField_ciudad.setColumns(10);
 
@@ -105,7 +108,7 @@ public class PanelResumen extends JPanel {
 		TextField_Nnoches.setColumns(10);
 
 		Lblciudad = new JLabel("Ciudad:");
-		Lblciudad.setBounds(310, 61, 68, 24);
+		Lblciudad.setBounds(313, 94, 68, 24);
 		panel.add(Lblciudad);
 
 		TextField_Precio = new JTextField();
@@ -129,17 +132,33 @@ public class PanelResumen extends JPanel {
 		textField_precioFinal.setColumns(10);
 		textField_precioFinal.setBounds(292, 261, 86, 22);
 		panel.add(textField_precioFinal);
-		
+
 		LblTipo_cama = new JLabel("Tipo cama:");
-		LblTipo_cama.setBounds(310, 127, 97, 20);
+		LblTipo_cama.setBounds(313, 160, 97, 20);
 		panel.add(LblTipo_cama);
-		
+
 		TextField_Tipo_cama = new JTextField();
-		TextField_Tipo_cama.setBounds(310, 158, 97, 22);
+		TextField_Tipo_cama.setBounds(313, 191, 97, 22);
 		panel.add(TextField_Tipo_cama);
 		TextField_Tipo_cama.setColumns(10);
-		
 
+		JLabel lblIdalojamiento = new JLabel("IdAlojamiento:");
+		lblIdalojamiento.setBounds(106, 16, 134, 14);
+		panel.add(lblIdalojamiento);
+
+		textField_id = new JTextField();
+		textField_id.setColumns(10);
+		textField_id.setBounds(200, 13, 73, 20);
+		panel.add(textField_id);
+
+	}
+
+	public JTextField getTextField_id() {
+		return textField_id;
+	}
+
+	public void setTextField_id(JTextField textField_id) {
+		this.textField_id = textField_id;
 	}
 
 	public JTextField getTextField_precioFinal() {
@@ -277,6 +296,7 @@ public class PanelResumen extends JPanel {
 	public void setTextField_Nnoches() {
 		this.TextField_Nnoches.setText("");
 	}
+
 	public JLabel getLblTipo_cama() {
 		return LblTipo_cama;
 	}
@@ -292,5 +312,4 @@ public class PanelResumen extends JPanel {
 	public void setTextField_Tipo_cama(JTextField textField_Tipo_cama) {
 		TextField_Tipo_cama = textField_Tipo_cama;
 	}
-
 }

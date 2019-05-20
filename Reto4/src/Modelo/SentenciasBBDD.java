@@ -7,7 +7,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 import javax.xml.bind.DatatypeConverter;
+
+import com.mysql.jdbc.PreparedStatement;
+
 import Modelo.ConsultasBBDD;
 import Modelo.Hotel;
 
@@ -15,6 +19,7 @@ public class SentenciasBBDD {
 	static java.sql.Statement stmt = null;
 
 	static ArrayList<Hotel> lista;
+
 	static ConsultasBBDD mysql = new ConsultasBBDD();
 	static java.sql.Connection cn = mysql.conectarmySQL();
 	static java.sql.PreparedStatement ps = null;
@@ -37,21 +42,59 @@ public class SentenciasBBDD {
 
 	}
 
+	public void cargarCmbTipoCamas(JComboBox<String> camas) {
+		ResultSet rs;
+		String query;
+		query = "Select distinct Tipo_cama from tipohabitacion";
+		try {
+			stmt = cn.createStatement();
+			rs = stmt.executeQuery(query);
+			while (rs.next()) {
+				String nombreUbi = rs.getString("Tipo_cama");
+				camas.addItem(nombreUbi);
+
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
+
+	public int cogerIdTipocamas(String tipo) {
+		ResultSet rs;
+		String query;
+		int idTipoHabitacion = 0;
+		query = "Select Id_habitacion from tipohabitacion where Tipo_cama='" + tipo + "'";
+		try {
+			stmt = cn.createStatement();
+			rs = stmt.executeQuery(query);
+			while (rs.next()) {
+				idTipoHabitacion = rs.getInt("Id_habitacion");
+
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return idTipoHabitacion;
+
+	}
+
 	public ArrayList<Hotel> visualizarCiudad(String ubicacion) {
 
 		ResultSet rs;
 		lista = new ArrayList<Hotel>();
 
 		String query;
-		query = "Select Nombre,Precio from hotel where Ubicación='" + ubicacion + "'";
+		query = "Select Id,Nombre,Precio from hotel where Ubicación='" + ubicacion + "'";
 		try {
 			stmt = cn.createStatement();
 			rs = stmt.executeQuery(query);
 			while (rs.next()) {
+
+				int id = rs.getInt("Id");
 				String nombre = rs.getString("Nombre");
 				double precio = rs.getDouble("Precio");
 
-				Hotel h = new Hotel(nombre, precio);
+				Hotel h = new Hotel(id, nombre, precio);
 				lista.add(h);
 			}
 
@@ -72,13 +115,13 @@ public class SentenciasBBDD {
 
 	}
 
-	public String SacarNombre(String ubicacion) {
+	public String SacarNombre(String id) {
 
 		ResultSet rs;
 		String nombre = null;
 
 		String query;
-		query = "Select Nombre from hotel where Ubicación='" + ubicacion + "'";
+		query = "Select Nombre from hotel where Id='" + id + "'";
 		try {
 			stmt = cn.createStatement();
 			rs = stmt.executeQuery(query);
@@ -134,13 +177,13 @@ public class SentenciasBBDD {
 
 	}
 
-	public String SacarEstrellas(String ubicacion) {
+	public String SacarEstrellas(String id) {
 
 		ResultSet rs;
 		String estrellas = null;
 
 		String query;
-		query = "Select Estrellas from hotel where Ubicación='" + ubicacion + "'";
+		query = "Select Estrellas from hotel where Id='" + id + "'";
 		try {
 			stmt = cn.createStatement();
 			rs = stmt.executeQuery(query);
@@ -165,13 +208,13 @@ public class SentenciasBBDD {
 
 	}
 
-	public Double SacarPrecio(String ubicacion) {
+	public Double SacarPrecio(String id) {
 
 		ResultSet rs;
 		Double precio = null;
 
 		String query;
-		query = "Select Precio from hotel where Ubicación='" + ubicacion + "'";
+		query = "Select Precio from hotel where Id='" + id + "'";
 		try {
 			stmt = cn.createStatement();
 			rs = stmt.executeQuery(query);
@@ -194,37 +237,6 @@ public class SentenciasBBDD {
 		}
 
 		return precio;
-
-	}
-
-	public int SacarId(String ubicacion) {
-
-		ResultSet rs;
-		int Id = 0;
-
-		String query;
-		query = "Select Id from hotel where Ubicación='" + ubicacion + "'";
-		try {
-			stmt = cn.createStatement();
-			rs = stmt.executeQuery(query);
-			while (rs.next()) {
-				Id = rs.getInt("Id");
-			}
-
-			stmt.close();
-		} catch (Exception e) {
-			e.getMessage();
-		} finally {
-			if (stmt != null) {
-				try {
-					stmt.close();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-		}
-		return Id;
 
 	}
 
@@ -330,29 +342,37 @@ public class SentenciasBBDD {
 		return rs;
 	}
 
-	public int insertarReserva(Reserva v1) {
+	public int insertarReserva(Reserva v1, int sacarID) {
+		java.sql.PreparedStatement ps2 = null;
+		Hotel h1 = sacarHotel(sacarID);
 		int rs = 0;
-		String sql = "INSERT INTO reserva(Precio,Id,Dni,Id_habitacion,Fecha) VALUES(?,?,?,?,?)";
+		int rs2;
+		if (h1.getCapacidad() == 0) {
+			JOptionPane.showMessageDialog(null, "No se puede hacer reserva para este hotel");
+			rs = 0;
+		} else {
 
-		try {
+			String sql = "INSERT INTO reserva(Precio,Id,Dni,Id_habitacion,Fecha) VALUES(?,?,?,?,?)";
+			String sqlQuitarCapacidad = " UPDATE hotel SET Capacidad=" + (h1.getCapacidad() - 1) + " WHERE id="
+					+ h1.getId();
 
-			ps = cn.prepareStatement(sql);
-			// asignamos los atributos a la consulta
+			try {
 
-			System.out.println(v1.getPrecio());
-			ps.setDouble(1, v1.getPrecio());
-			System.out.println(v1.getId());
-			ps.setInt(2, v1.getId());
-			System.out.println(v1.getDni());
-			ps.setString(3, v1.getDni());
-			ps.setInt(4, 3);
-			System.out.println(v1.getFecha());
-			ps.setDate(5,(Date) v1.getFecha());
+				ps2 = cn.prepareStatement(sqlQuitarCapacidad);
+				ps = cn.prepareStatement(sql);
+				// ps2.executeQuery();
+				// asignamos los atributos a la consulta
+				ps.setDouble(1, v1.getPrecio());
+				ps.setInt(2, v1.getId());
+				ps.setString(3, v1.getDni());
+				ps.setInt(4, v1.getId_habitacion());
+				ps.setString(5, v1.getFecha());
 
-			rs = ps.executeUpdate();
-
-		} catch (Exception e) {
-			System.out.println("Insert Erroneo");
+				rs = ps.executeUpdate();
+				rs2 = ps2.executeUpdate();
+			} catch (Exception e) {
+				System.out.println("Insert Erroneo");
+			}
 		}
 		return rs;
 
@@ -362,7 +382,7 @@ public class SentenciasBBDD {
 		String dniReserva;
 		int idReserva, idAlojamiento, tipoCama;
 		double precio;
-		Date fecha;
+		String fecha;
 		ResultSet rs;
 		String sql = "SELECT * FROM reserva where Dni='" + dni + "'";
 		ArrayList<Reserva> r1Array = new ArrayList<Reserva>();
@@ -372,13 +392,11 @@ public class SentenciasBBDD {
 			rs = stmt.executeQuery(sql);
 			while (rs.next()) {
 				idReserva = rs.getInt(1);
-				System.out.println("id_resrva" + idReserva);
 				precio = rs.getDouble(2);
 				idAlojamiento = rs.getInt(3);
 				dniReserva = rs.getString(4);
 				tipoCama = rs.getInt(5);
-				fecha = rs.getDate(6);
-				System.out.println("noche" + fecha);
+				fecha = rs.getString(6);
 				v1 = new Reserva(idReserva, dniReserva, precio, idAlojamiento, fecha, tipoCama);
 				r1Array.add(v1);
 			}
@@ -388,6 +406,41 @@ public class SentenciasBBDD {
 			e.getMessage();
 		}
 		return r1Array;
+
+	}
+
+	public Hotel sacarHotel(int idHotel) {
+		ResultSet rs;
+		int id = 0, capacidad = 0;
+		Hotel h1 = null;
+		String query;
+		query = "Select Id, Capacidad from hotel where Id=" + idHotel;
+		try {
+			stmt = cn.createStatement();
+			rs = stmt.executeQuery(query);
+			while (rs.next()) {
+				id = rs.getInt("Id");
+
+				capacidad = rs.getInt("Capacidad");
+
+				h1 = new Hotel(id, capacidad);
+
+			}
+
+			stmt.close();
+		} catch (Exception e) {
+			e.getMessage();
+		} finally {
+			if (stmt != null) {
+				try {
+					stmt.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		}
+		return h1;
 
 	}
 

@@ -34,7 +34,11 @@ public class Controlador {
 	protected static final String String = null;
 	private Vista vista;
 	private String ubicacion;
-	Double precioFinal;
+	private String camas;
+	private Double precioFinal;
+	static String verId;
+	final java.util.Date fecha = new Date();
+
 
 	SentenciasBBDD sentencias = new SentenciasBBDD();
 
@@ -203,7 +207,7 @@ public class Controlador {
 		// un objeto usuario
 		if (java.lang.String.valueOf(vista.registro.getpFContrasenaRegistro().getPassword())
 				.equals(java.lang.String.valueOf(vista.registro.getpFRegistroContrasena().getPassword()))) {
-			System.out.print("son iguales");
+			
 			A1 = new Cliente();
 
 			A1.setNombre(vista.registro.gettFNombreRegistro().getText());
@@ -213,9 +217,7 @@ public class Controlador {
 			A1.setTelefono(Integer.parseInt(vista.registro.getTextField_Telefono().getText()));
 			A1.setgmail(vista.registro.getTextField_Gmail().getText());
 
-		} else {
-			System.out.print("No son iguales");
-		}
+		} 
 
 		return A1;
 
@@ -235,24 +237,23 @@ public class Controlador {
 		;
 	}
 
-	public Date fechahoy() {
+	public String fechahoy() {
 		Date fecha = new Date();
 		SimpleDateFormat formato;
 		String fechaDeHoy = null;
 		try {
-			
+
 			formato = new SimpleDateFormat("yyyy-MM-dd");
 			fechaDeHoy = formato.format(fecha);
-System.out.println(fechaDeHoy);
-			fecha=formato.parse(fechaDeHoy);
-			System.out.println(fecha);
+			
+			fecha = formato.parse(fechaDeHoy);
+			
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return fecha;
+		return fechaDeHoy;
 
-		
 	}
 
 	private Reserva cogerdatosparareserva() throws ParseException {
@@ -260,19 +261,20 @@ System.out.println(fechaDeHoy);
 		Reserva v1 = new Reserva();
 		v1.setDni(vista.login.gettFLoginUsuario().getText());
 		v1.setFecha(fechahoy());
+		v1.setId_habitacion(sentencias.cogerIdTipocamas(vista.Resumen.getTextField_Tipo_cama().getText()));
 		v1.setPrecio(Double.parseDouble(vista.Resumen.getTextField_Precio().getText()));
-		v1.setId(sentencias.SacarId(ubicacion));
+		v1.setId(Integer.parseInt(verId));
 		return v1;
 
 	}
 
-	public void generarfichero() throws IOException {
+	public void generarfichero(String dni) throws IOException {
+		ArrayList<Reserva> lista = sentencias.datosReserva(dni);
+
 		String nombre = JOptionPane.showInputDialog(null, "Introduce el noombre del fichero");
-		File ruta = new File("c:/ficheros");
+		File ruta = new File("Ficheros/");
 		File f = new File(ruta, nombre + ".txt");
-		System.out.println(f.getParent());
-		System.out.println(ruta.getAbsolutePath());
-		System.out.println(ruta.getParent());
+		
 
 		try {
 			FileWriter fw = new FileWriter(f);
@@ -286,18 +288,6 @@ System.out.println(fechaDeHoy);
 						if (f.createNewFile()) { // se crea el fichero. Si se ha creado correctamente
 							System.out.println("Fichero " + f.getName() + " creado");
 
-							/*
-							 * impresora.println("\tRESERVAS DE:"+dni);
-							 * impresora.println("------------------"); impresora.println(""); for(int
-							 * i=0;i<lista.size();i++) {
-							 * impresora.println(lista.get(i).getId_reserva()+"\t"+lista.get(i).getDni()+
-							 * "\t"+ lista.get(i).getDni()+"\t"+ lista.get(i).getNombre()+"\t"+
-							 * lista.get(i).getUbicacion()+"\t"+ lista.get(i).getEstrellas()+"\t"+
-							 * lista.get(i).getPrecio()+"\t"+ lista.get(i).getId()+"\t"+
-							 * lista.get(i).getTipo_cama()+"\t"+ lista.get(i).getNoches());
-							 * 
-							 * } impresora.println(""); impresora.close();
-							 */
 						} else {
 							System.out.println("No se ha podido crear " + f.getName());
 						}
@@ -314,14 +304,37 @@ System.out.println(fechaDeHoy);
 				}
 			} else { // el fichero existe. Mostramos el tamaño
 				System.out.println("Fichero " + f.getName() + " existe");
-				impresora.println("Nombre Hotel:" + sentencias.SacarNombre(ubicacion) + "     Precio Hotel:"
-						+ sentencias.SacarPrecio(ubicacion));
+				/*
+				 * impresora.println("Nombre Hotel:" + sentencias.SacarNombre(ubicacion) +
+				 * "     Precio Hotel:" + sentencias.SacarPrecio(ubicacion));
+				 */
+				/// *//***************************************
+
+				impresora.println("\tRESERVAS HASTA AHORA DE:" + sentencias.SacarNombreUsuario(dni));
+				impresora.println("------------------");
+				impresora.println("Nº Reserva\tDni Cliente\tNombre Hotel\t\t\tTipo Cama\tFecha\tPrecio");
+				for (int i = 0; i < lista.size(); i++) {
+					impresora.println(lista.get(i).getId_reserva() + "\t\t\t" + lista.get(i).getDni() + "\t"
+							+ vista.Resumen.getTextField_nombre().getText() + "\t" + lista.get(i).getId_habitacion()
+							+ "\t"+lista.get(i).getFecha()+"\t" + lista.get(i).getPrecio());
+
+				}
+				impresora.println("");
+				impresora.close();
+
 				impresora.close();
 			}
 		} catch (Exception e) {
 			System.out.println("Exception");
 		}
 	}
+	public void fechaMinima(Date min) {
+		vista.eleccion.getDataida().setMinSelectableDate(min);
+	}
+	public void fechaMinimaVuelta() {
+		vista.eleccion.getDatavuelta().setMinSelectableDate(vista.eleccion.getDataida().getDate());
+	}
+
 	// ************************************************************************************************************
 
 	private void InitializeEvents() {
@@ -330,6 +343,7 @@ System.out.println(fechaDeHoy);
 				fechahoy();
 				vista.mostrarPanel(vista.licencia);
 				sentencias.cogerUbicacion(vista.eleccion.getComboBox_1());
+				sentencias.cargarCmbTipoCamas(vista.listado.getComboBox_2());
 
 			}
 		});
@@ -341,6 +355,7 @@ System.out.println(fechaDeHoy);
 
 			}
 		});
+
 		// La accion es que mete a la tabla con la ubicacion que pase del combobox
 		vista.eleccion.getbtnBuscar().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -358,17 +373,19 @@ System.out.println(fechaDeHoy);
 					};
 
 					ArrayList<Hotel> hotel1 = sentencias.visualizarCiudad(ubicacion);
-					Object[] columnas = new Object[2];
+					Object[] columnas = new Object[3];
 					columnas[0] = "Nombre";
 					columnas[1] = "Precio";
+					columnas[2] = "Id";
 
 					model.setColumnIdentifiers(columnas);
-					Object[] filas = new Object[2];
+					Object[] filas = new Object[3];
 					for (int i = 0; i < hotel1.size(); i++) {
 
-						filas[0] = hotel1.get(i).getNombre();
+						filas[0] = hotel1.get(i).getId();
+						filas[1] = hotel1.get(i).getNombre();
 
-						filas[1] = hotel1.get(i).getPrecio();
+						filas[2] = hotel1.get(i).getPrecio();
 
 						model.addRow(filas);
 					}
@@ -383,9 +400,6 @@ System.out.println(fechaDeHoy);
 						vista.mostrarPanel(vista.listado);
 					}
 
-					String tipo_cama = (String) vista.listado.getComboBox_2().getSelectedItem();
-					vista.Resumen.getTextField_Tipo_cama().setText(tipo_cama);
-
 				} else {
 					JOptionPane.showMessageDialog(null, "Selecciona un hotel");
 				}
@@ -397,44 +411,73 @@ System.out.println(fechaDeHoy);
 
 			}
 		});
+		vista.eleccion.getDataida().getCalendarButton().addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				fechaMinima(fecha);
+			}
+		});
+		vista.eleccion.getDatavuelta().getCalendarButton().addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				fechaMinimaVuelta();
+			}
+		});
 		// **************************LISTADO*************
 		vista.listado.getBtnReservar().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-
-				if (vista.listado.getTable().getSelectedRowCount() > 0) {
-					vista.Resumen.getTextField_nombre().setText(
-							(String) vista.listado.getTable().getValueAt(vista.listado.getTable().getSelectedRow(), 0));
+				if (!(vista.listado.getComboBox_2().getSelectedItem().equals("-Selecciona-"))) {
+					if (vista.listado.getTable().getSelectedRowCount() > 0) {
+						vista.Resumen.getTextField_nombre().setText((String) vista.listado.getTable()
+								.getValueAt(vista.listado.getTable().getSelectedRow(), 1));
+						 verId= java.lang.String.valueOf(vista.listado.getTable()
+								.getValueAt(vista.listado.getTable().getSelectedRow(), 0));
+						
+						vista.Resumen.getTextField_id().setText(verId);
+					}
+					String huespedes = (String) vista.eleccion.getTextField_huespedes().getText();
+					String Nnoches = (String) vista.eleccion.getTextField_Noches().getText();
+					vista.Resumen.getTextField_Nnoches().setText(java.lang.String.valueOf(Nnoches));
+					Double precio = sentencias.SacarPrecio(verId);
+					vista.Resumen.getTextField_Precio().setText(java.lang.String.valueOf(precio));
+					String ciudadhotel = (String) vista.eleccion.getComboBox_1().getSelectedItem();
+					vista.Resumen.getTextField_ciudad().setText(ciudadhotel);
+					String dia = Integer.toString(vista.eleccion.getDataida().getCalendar().get(Calendar.DAY_OF_MONTH));
+					String mes = Integer.toString(vista.eleccion.getDataida().getCalendar().get(Calendar.MONTH) + 1);
+					String year = Integer.toString(vista.eleccion.getDataida().getCalendar().get(Calendar.YEAR));
+					String fechahotel = (dia + "-" + mes + "-" + year);
+					vista.Resumen.getTextField_fechaIni().setText(fechahotel);
+					String dia2 = Integer
+							.toString(vista.eleccion.getDatavuelta().getCalendar().get(Calendar.DAY_OF_MONTH));
+					String mes2 = Integer
+							.toString(vista.eleccion.getDatavuelta().getCalendar().get(Calendar.MONTH) + 1);
+					String year2 = Integer.toString(vista.eleccion.getDatavuelta().getCalendar().get(Calendar.YEAR));
+					String fechahotel2 = (dia2 + "-" + mes2 + "-" + year2);
+					vista.Resumen.getTextField_fechaFin().setText(fechahotel2);
+					Double preciohotel = sentencias.CalcularPrecio(precio, huespedes, Nnoches);
+					vista.Resumen.getTextField_precioFinal().setText(java.lang.String.valueOf(preciohotel));
+					precioFinal = Double.parseDouble(vista.Resumen.getTextField_precioFinal().getText());
+					String estrellashotel = sentencias.SacarEstrellas(verId);
+					vista.Resumen.getTextField_Estrellas().setText(estrellashotel);
+					String tipo_cama = (String) vista.listado.getComboBox_2().getSelectedItem();
+					vista.Resumen.getTextField_Tipo_cama().setText(tipo_cama);
+					vista.mostrarPanel(vista.Resumen);
+				} else {
+					JOptionPane.showMessageDialog(null, "Selecciona el tipo de cama");
 				}
-				String huespedes = (String) vista.eleccion.getTextField_huespedes().getText();
-				String Nnoches = (String) vista.eleccion.getTextField_Noches().getText();
-				vista.Resumen.getTextField_Nnoches().setText(java.lang.String.valueOf(Nnoches));
-				Double precio = sentencias.SacarPrecio(ubicacion);
-				vista.Resumen.getTextField_Precio().setText(java.lang.String.valueOf(precio));
-				String ciudadhotel = (String) vista.eleccion.getComboBox_1().getSelectedItem();
-				vista.Resumen.getTextField_ciudad().setText(ciudadhotel);
-				String dia = Integer.toString(vista.eleccion.getDataida().getCalendar().get(Calendar.DAY_OF_MONTH));
-				String mes = Integer.toString(vista.eleccion.getDataida().getCalendar().get(Calendar.MONTH) + 1);
-				String year = Integer.toString(vista.eleccion.getDataida().getCalendar().get(Calendar.YEAR));
-				String fechahotel = (dia + "-" + mes + "-" + year);
-				vista.Resumen.getTextField_fechaIni().setText(fechahotel);
-				String dia2 = Integer.toString(vista.eleccion.getDatavuelta().getCalendar().get(Calendar.DAY_OF_MONTH));
-				String mes2 = Integer.toString(vista.eleccion.getDatavuelta().getCalendar().get(Calendar.MONTH) + 1);
-				String year2 = Integer.toString(vista.eleccion.getDatavuelta().getCalendar().get(Calendar.YEAR));
-				String fechahotel2 = (dia2 + "-" + mes2 + "-" + year2);
-				vista.Resumen.getTextField_fechaFin().setText(fechahotel2);
-				Double preciohotel = sentencias.CalcularPrecio(precio, huespedes, Nnoches);
-				vista.Resumen.getTextField_precioFinal().setText(java.lang.String.valueOf(preciohotel));
-				precioFinal = Double.parseDouble(vista.Resumen.getTextField_precioFinal().getText());
-				String estrellashotel = sentencias.SacarEstrellas(ubicacion);
-				vista.Resumen.getTextField_Estrellas().setText(estrellashotel);
-				vista.mostrarPanel(vista.Resumen);
-
 			}
 		});
 		vista.listado.getBtnAtras().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				vista.mostrarPanel(vista.eleccion);
 				/* poner la licencia en el principal panel */
+			}
+		});
+		vista.listado.getComboBox_2().addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+
+				camas = e.getItem().toString();
+
 			}
 		});
 		// **************************RESUMEN*************
@@ -497,14 +540,19 @@ System.out.println(fechaDeHoy);
 
 					} else {
 						Reserva v1;
-
 						v1 = cogerdatosparareserva();
+						if(sentencias.insertarReserva(v1,Integer.parseInt( verId))==0) {
+							vista.mostrarPanel(vista.eleccion);
+						}else {
+						
 
-						sentencias.insertarReserva(v1);
+						
+						sentencias.insertarReserva(v1,Integer.parseInt( verId));
 						vista.mostrarPanel(vista.Devolver);
 						String vuelta = vista.pagar.getTextField_devolver().getText();
 
 						devolver(vuelta);
+					}
 					}
 				} catch (ParseException e) {
 					// TODO Auto-generated catch block
@@ -554,9 +602,9 @@ System.out.println(fechaDeHoy);
 				Cliente A1 = cogerdatosregistroUsuario();
 				int exito = sentencias.insertarUsuario(A1);
 				if (exito > 0) {
-					System.out.println("Es");
+					System.out.println("Contraseñas iguales");
 				} else {
-					System.out.println("no");
+					System.out.println("Contraseñas Incorrectas");
 				}
 				resetRegistro();
 				vista.mostrarPanel(vista.login);
@@ -570,7 +618,7 @@ System.out.println(fechaDeHoy);
 				vista.eleccion.getTextField_Noches().setText(null);
 				String dni = vista.login.gettFLoginUsuario().getText();
 				try {
-					generarfichero();
+					generarfichero(dni);
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

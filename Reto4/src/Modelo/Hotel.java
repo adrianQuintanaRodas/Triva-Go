@@ -5,6 +5,7 @@ public class Hotel {
 	private String nombre;
 	private String ubicacion;
 	private double precio;
+	private int capacidad;
 	public Hotel(int id, String nombre, String ubicacion, double precio) {
 		super();
 		this.id = id;
@@ -13,12 +14,26 @@ public class Hotel {
 		this.precio = precio;
 	}
 	
-	public Hotel( String nombre, double precio) {
+	public Hotel(int id, String nombre, double precio) {
 		super();
+		this.id=id;
 		this.nombre = nombre;
 		this.precio = precio;
 	}
+	public Hotel( int id, int capacidad) {
+		super();
+		this.id= id;
+		this.capacidad = capacidad;
+	}
 	
+	protected int getCapacidad() {
+		return capacidad;
+	}
+
+	protected void setCapacidad(int capacidad) {
+		this.capacidad = capacidad;
+	}
+
 	public int getId() {
 		return id;
 	}

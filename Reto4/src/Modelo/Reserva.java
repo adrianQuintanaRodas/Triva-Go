@@ -1,17 +1,12 @@
 package Modelo;
 
-import java.util.Date;
-
-import com.mysql.fabric.xmlrpc.base.Data;
-
 public class Reserva {
 	private int Id_reserva;
 	private String Dni;
 	private Double Precio;
 	private int id;
 	private int Id_habitacion;
-	private Date fecha;
-	
+	private String fecha;
 
 	public int getId_reserva() {
 		return Id_reserva;
@@ -37,11 +32,11 @@ public class Reserva {
 		Id_habitacion = id_habitacion;
 	}
 
-	public Date getFecha() {
+	public String getFecha() {
 		return fecha;
 	}
 
-	public void setFecha(Date date) {
+	public void setFecha(String date) {
 		this.fecha = date;
 	}
 
@@ -60,16 +55,14 @@ public class Reserva {
 	public void setId(int id) {
 		this.id = id;
 	}
-	
 
-	public Reserva(int Id_reserva, String Dni, Double Precio,int id, Date fecha, int Id_habitacion) {
+	public Reserva(int Id_reserva, String Dni, Double Precio, int id, String fecha, int Id_habitacion) {
 		this.Id_reserva = Id_reserva;
 		this.Dni = Dni;
 		this.Id_habitacion = Id_habitacion;
 		this.Precio = Precio;
 		this.id = id;
 		this.fecha = fecha;
-		
 
 	}
 

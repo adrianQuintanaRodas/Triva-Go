@@ -21,7 +21,7 @@ public class PanelPresentacion extends JPanel {
 		add(btnPresentacionTermibus);
 
 		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\IN1DM3B_08\\Downloads\\TrivaGO.png"));
+		lblNewLabel.setIcon(new ImageIcon("Imagenes/TrivaGO.jpg"));
 		lblNewLabel.setBounds(90, 47, 284, 219);
 		add(lblNewLabel);
 

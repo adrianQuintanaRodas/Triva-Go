@@ -55,7 +55,7 @@ public class Licencia extends JPanel {
 		boton2.setEnabled(true);
 		add(boton2);
 
-		ImageIcon imagen = new ImageIcon("C:\\Users\\IN1DM3B_08\\Desktop\\Licencia.png");
+		ImageIcon imagen = new ImageIcon("Imagenes/Licencia.png");
 		label2 = new JLabel(imagen);
 		label2.setBounds(315, 135, 300, 300);
 		add(label2);
